@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Player Watchlist 2027 | Sisu Sports Management</title>
+<title>Sisu Player List | Sisu Sports Management</title>
+<meta name="description" content="Sisu-represented players available for the Winter and Summer 2027 transfer windows.">
+<meta property="og:title" content="Sisu Player List | Sisu Sports Management">
+<meta property="og:description" content="Sisu-represented players available for the Winter and Summer 2027 transfer windows.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -573,7 +577,7 @@ function viewHub(){
   return `
   <header class="hero"><div class="wrap">
     <div class="eyebrow">Sisu Sports Management · 2027 Transfer Windows</div>
-    <h1>Player Watchlist 2027</h1>
+    <h1>Sisu Player List</h1>
     <p class="lead">Selected Sisu-represented players for clubs recruiting in the Winter and Summer 2027 windows. Men's and women's football.</p>
     ${trustLine()}
     <div class="hero-actions">
@@ -627,14 +631,14 @@ function viewList(q){
   if (win !== "all") titleParts.push(WINDOWS[win].label);
   const heading = pos !== "all" ? POSITIONS[pos].label : "All players";
   const sub = [g === "W" ? "Women" : g === "M" ? "Men" : "Men & women", win !== "all" ? WINDOWS[win].short : "All windows"].join(" · ");
-  const blurb = win !== "all" ? WINDOWS[win].blurb : "Every player currently on the Sisu watchlist.";
+  const blurb = win !== "all" ? WINDOWS[win].blurb : "Every player currently on the Sisu Player List.";
 
   const chips = (name, cur, opts) => `<div class="fgroup"><label>${name}</label>${
     opts.map(([v, l]) => `<button class="chip" data-f="${name.toLowerCase()}" data-v="${v}" aria-pressed="${cur === v}">${l}</button>`).join("")}</div>`;
 
   return `
   <header class="hero list-hero"><div class="wrap">
-    <a class="crumb" href="#/">${ICON.back} 2027 Watchlist</a>
+    <a class="crumb" href="#/">${ICON.back} Sisu Player List</a>
     <div class="eyebrow">${esc(sub)}</div>
     <h1>${esc(heading)}</h1>
     <p class="lead">${esc(blurb)}</p>
@@ -723,7 +727,7 @@ function detailBlocks(p){
 }
 function viewPlayer(id){
   const p = PLAYERS.find(x => x.id === id);
-  if (!p) return `<section class="block"><div class="wrap"><div class="empty">Player not found. <a href="#/">Back to the watchlist</a></div></div></section>`;
+  if (!p) return `<section class="block"><div class="wrap"><div class="empty">Player not found. <a href="#/">Back to the Sisu Player List</a></div></div></section>`;
   const w = WINDOWS[p.window];
   const facts = [
     ["Position", p.position],
