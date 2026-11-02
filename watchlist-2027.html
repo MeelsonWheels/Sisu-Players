@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Player Watchlist 2027 | Sisu Sports Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14243B; --navy-2:#00366B; --yellow:#F4D450;
+    --ink:#14243B; --muted:#5E6B7D; --line:#E3E7ED; --panel:#F5F7FA; --bg:#FFFFFF;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:Poppins,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  button{font:inherit;cursor:pointer}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1.5px solid currentColor;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:transparent;color:inherit;transition:.15s}
+  .btn.solid{background:var(--yellow);border-color:var(--yellow);color:var(--navy)}
+  .btn.solid:hover{filter:brightness(.95)}
+  .btn.ghost:hover{background:rgba(255,255,255,.1)}
+  .btn.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+  .btn.dark:hover{background:var(--navy-2);border-color:var(--navy-2)}
+  .btn svg{width:16px;height:16px}
+
+  /* Hero */
+  .hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border:60px solid rgba(244,212,80,.08);border-radius:50%}
+  .hero .wrap{padding-top:64px;padding-bottom:64px;position:relative;z-index:1}
+  .hero .eyebrow{color:var(--yellow)}
+  .hero h1{font-size:clamp(32px,5.4vw,58px);line-height:1.05;margin:14px 0 14px;font-weight:700;letter-spacing:-.01em;text-transform:uppercase}
+  .hero p.lead{font-size:17px;font-weight:300;max-width:620px;margin:0 0 26px;color:#DCE3EE}
+  .trust{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:#B9C4D4;margin-bottom:30px}
+  .trust span{display:inline-flex;align-items:center;gap:8px}
+  .trust svg{width:14px;height:14px;color:var(--yellow)}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+
+  /* Sections */
+  section.block{padding:56px 0}
+  section.block.alt{background:var(--panel)}
+  .sec-head{margin-bottom:26px}
+  .sec-head .eyebrow{color:var(--navy-2)}
+  .sec-head h2{font-size:clamp(24px,3.2vw,34px);margin:8px 0 6px;font-weight:700;text-transform:uppercase;letter-spacing:-.005em}
+  .sec-head p{margin:0;color:var(--muted);max-width:640px}
+
+  /* Window tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tile{display:flex;flex-direction:column;justify-content:space-between;min-height:170px;padding:22px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);text-decoration:none;transition:.15s;position:relative}
+  .tile:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,36,59,.08)}
+  .tile .eyebrow{color:var(--muted);font-size:11px}
+  .tile h3{margin:8px 0 0;font-size:22px;line-height:1.15;text-transform:uppercase}
+  .tile .count{font-size:40px;font-weight:700;line-height:1;color:var(--navy)}
+  .tile .foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:18px}
+  .tile .go{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;gap:6px;align-items:center}
+  .tile .go svg{width:14px;height:14px}
+  .tile.feature{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .tile.feature .eyebrow{color:var(--yellow)}
+  .tile.feature .count{color:var(--yellow)}
+
+  /* Position grid */
+  .gender-row{margin-bottom:34px}
+  .gender-row:last-child{margin-bottom:0}
+  .gender-row h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+  .gender-row h3::after{content:"";flex:1;height:1px;background:var(--line)}
+  .pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .pos{display:flex;justify-content:space-between;align-items:center;padding:18px 18px;border-radius:12px;background:#fff;border:1px solid var(--line);text-decoration:none;transition:.15s}
+  .pos:hover{border-color:var(--navy);background:#fff}
+  .pos b{display:block;font-size:15px;text-transform:uppercase;letter-spacing:.02em}
+  .pos small{color:var(--muted);font-size:12px}
+  .pos .n{font-size:24px;font-weight:700;color:var(--navy-2)}
+
+  /* List view */
+  .crumb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--yellow);margin-bottom:14px}
+  .crumb svg{width:14px;height:14px}
+  .list-hero .wrap{padding-top:44px;padding-bottom:40px}
+  .list-hero h1{font-size:clamp(28px,4.4vw,46px);margin:10px 0 8px}
+  .filters{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+  .filters .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-top:14px;padding-bottom:14px}
+  .fgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .fgroup label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:4px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:500;color:var(--ink)}
+  .chip:hover{border-color:var(--navy)}
+  .chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+  .search{flex:1;min-width:180px;max-width:280px;margin-left:auto;padding:9px 14px;border:1px solid var(--line);border-radius:999px;font:inherit;font-size:14px}
+  .search:focus{outline:2px solid var(--navy-2);outline-offset:1px}
+  .select,.num{border:1px solid var(--line);border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;background:#fff;color:var(--ink)}
+  .select{padding-right:28px}
+  .num{width:72px;text-align:center}
+  .select:focus,.num:focus{outline:2px solid var(--navy-2);outline-offset:1px}
+  .fgroup.age .dash{font-size:12px;color:var(--muted);margin:0 2px}
+  .result-count{font-size:13px;color:var(--muted);margin:24px 0 14px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.15s}
+  .card:hover{box-shadow:0 12px 28px rgba(20,36,59,.09);border-color:#cfd6e0}
+  .card .top{background:var(--navy);color:#fff;padding:18px 18px 16px;position:relative;min-height:118px;display:flex;flex-direction:column;justify-content:space-between}
+  .avatar{width:54px;height:54px;border-radius:50%;background:var(--navy-2);border:2px solid var(--yellow);display:grid;place-items:center;font-weight:600;font-size:18px;color:var(--yellow);letter-spacing:.02em}
+  .badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.12);color:#fff}
+  .badge.now{background:var(--yellow);color:var(--navy)}
+  .badge.winter{background:#fff;color:var(--navy)}
+  .badge.summer{background:rgba(244,212,80,.22);color:var(--yellow)}
+  .card .top .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card h3{margin:0;font-size:18px;line-height:1.2;text-transform:uppercase;letter-spacing:.01em}
+  .card h3 a{text-decoration:none}
+  .card h3 a:hover{text-decoration:underline}
+  .meta{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+  .meta strong{color:var(--ink);font-weight:500}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:var(--panel);color:var(--navy-2);border:1px solid var(--line)}
+  .card .actions{margin-top:auto;padding-top:6px}
+  .link-arrow{display:inline-flex;gap:6px;align-items:center;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--navy-2)}
+  .link-arrow svg{width:14px;height:14px}
+  .link-arrow:hover{color:var(--navy)}
+  .empty{padding:48px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
+
+  /* Profile */
+  .profile{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+  .profile .side{background:var(--navy);color:#fff;border-radius:var(--radius);padding:26px}
+  .profile .side .avatar{width:96px;height:96px;font-size:32px;margin-bottom:18px}
+  .profile .side h1{font-size:28px;line-height:1.1;margin:10px 0 6px;text-transform:uppercase}
+  .profile .side p{margin:0;color:#C9D3E1;font-size:14px}
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+  .fact{padding:16px 18px;border-bottom:1px solid var(--line)}
+  .fact:nth-child(odd){border-right:1px solid var(--line)}
+  .fact dt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:4px}
+  .fact dd{margin:0;font-size:15px;font-weight:500}
+  .detail{margin-top:22px}
+  .phys-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+  .phys-tile{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+  .phys-tile span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#C9D3E1}
+  .phys-tile b{font-size:26px;color:var(--yellow)}
+  .phys-table{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  .phys-table table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+  .phys-table th{background:var(--panel);text-align:right;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:9px 10px;white-space:nowrap}
+  .phys-table td{text-align:right;padding:9px 10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .phys-table th:first-child,.phys-table td:first-child{text-align:left}
+  .phys-src{font-size:12px;color:var(--muted);margin:8px 0 0}
+  @media (max-width:520px){ .phys-tiles{grid-template-columns:1fr} }
+  .bio{margin:0;font-size:15px;line-height:1.65;max-width:68ch}
+  .detail h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-2);margin:0 0 10px}
+  .video-links{display:flex;flex-wrap:wrap;gap:8px}
+  .btn.outline{color:var(--navy);border-color:var(--line);padding:9px 14px;font-size:12px}
+  .btn.outline:hover{border-color:var(--navy)}
+  .timeline{list-style:none;margin:0;padding:0 0 0 16px;border-left:2px solid var(--line);display:grid;gap:9px}
+  .timeline li{position:relative;font-size:14px}
+  .timeline li::before{content:"";position:absolute;left:-22px;top:7px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--navy-2)}
+  .timeline li:first-child::before{background:var(--yellow);border-color:var(--navy)}
+  .profile .note{font-size:13px;color:var(--muted);margin:14px 0 22px}
+
+  /* CTA + contact */
+  .cta{background:var(--navy);color:#fff;border-radius:20px;padding:40px;display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}
+  .cta h2{font-size:clamp(22px,3vw,32px);margin:8px 0 10px;text-transform:uppercase}
+  .cta p{margin:0;color:#C9D3E1}
+  .cta .eyebrow{color:var(--yellow)}
+  .cta ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:14px;color:#DCE3EE}
+  .cta li{display:flex;gap:10px;align-items:center}
+  .cta li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--yellow)}
+  .cta .actions{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .contact{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center;padding:30px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+  .contact strong{color:var(--ink)}
+  .disclaimer{font-size:12px;color:var(--muted);padding-bottom:30px}
+
+  @media (max-width:900px){
+    .tiles{grid-template-columns:1fr}
+    .pos-grid{grid-template-columns:repeat(2,1fr)}
+    .profile{grid-template-columns:1fr}
+    .cta{grid-template-columns:1fr;padding:28px}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px}
+    .pos-grid{grid-template-columns:1fr}
+    .facts{grid-template-columns:1fr}
+    .fact:nth-child(odd){border-right:0}
+    .search{max-width:none;margin-left:0}
+    .hero .wrap{padding-top:44px;padding-bottom:44px}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============================================================
+   PLAYER DATA  — edit here.
+   Fields: name, gender ('W'|'M'), nationality, nationalTeam,
+   position, birthYear, birthday (YYYY-MM-DD), club, clubCountry,
+   contractEnd ('YYYY-MM' = month club contract ends, 'free' = no
+   club, null = unknown). Unknown values stay null — never guessed.
+   Source: Sisu Player List, August 2026, updated from 2026 player profiles.
+   ============================================================ */
+const PLAYERS = [
+  // ---------- WOMEN ----------
+  ["Sophie Whitehouse","W","Ireland / England","Ireland","GK",1996,"1996-10-10","Charlton Athletic","England","2026-06"],
+  ["Anna Pedersen","W","England","England U19","GK",2002,"2002-03-19","Charlton Athletic","England","2026-06"],
+  ["Amanda Brunholt","W","Denmark","Denmark","GK",1995,"1995-03-30","Young Boys","Switzerland","2027-06"],
+  ["Sarah Hornschuch","W","British",null,"GK",1998,"1998-08-07","Napoli Women","Italy","2026-06"],
+  ["Zoe Edwards","W","Australia",null,"GK",1997,null,"Western Sydney Wanderers","Australia","2025-06"],
+  ["Mikki Easter","W","USA",null,"GK",2001,"2001-06-28","FCPS","Austria","2026-06"],
+  ["Kerry Abello","W","USA","USA","LB",1999,"1999-09-17","Orlando Pride","USA","2026-12"],
+  ["Chloe Mustaki","W","Ireland","Ireland","LB/LM",1995,"1995-07-29","Nottingham Forest","England","2026-06"],
+  ["Anna Heilferty","W","USA",null,"LWB",1999,"1999-04-17","Houston Dash","USA","2025-12"],
+  ["Sophie O'Rourke","W","England",null,"LB/RB",1999,"1999-06-03","Sheffield United","England","2026-06"],
+  ["Olivia Page","W","British / New Zealand","New Zealand U20","RB",2005,"2005-02-02","Newcastle Jets","Australia","2026-06"],
+  ["Isabel Hodgson","W","Australia",null,"RB/RWB",1996,"1996-05-12","Adelaide United","Australia","2026-06"],
+  ["Zoe McMeeken","W","New Zealand","New Zealand U20","RB",2004,"2004-03-11","Melbourne Victory","Australia","2026-06"],
+  ["Caragh Hamilton","W","Northern Ireland","Northern Ireland","RB",1996,"1996-10-18","Nottingham Forest","England","2026-06"],
+  ["Mia Golding","W","Australia",null,"RW/RWB",2007,"2007-01-14","APIA Leichhardt FC","Australia","2024-12"],
+  ["Rebekah Trewhitt","W","New Zealand","New Zealand U20","RB/RWB",2005,"2005-12-13","Lewes FC","England","2026-06"],
+  ["Wakana Mitani","W","Japan","Japan","RB",2001,"2001-10-02","SFK Riga","Latvia",null],
+  ["Lizzie Anton","W","New Zealand","New Zealand","CB",1998,"1998-12-12","Kolbotn IL","Norway","2025-11"],
+  ["Kate Taylor","W","New Zealand","New Zealand","CB",2003,"2003-10-21","Dijon","France","2026-06"],
+  ["Vyan Sampson","W","England / Jamaica","Jamaica","CB",1996,"1996-07-02","INAC Kobe","Japan","2026-06"],
+  ["Rafanny Mendoza","W","Venezuela","Venezuela","CB",1996,"1996-11-05","Swieqi United","Malta","2025-06"],
+  ["Ruby Cuthbert","W","Australia","Australia U17","CB",2007,"2007-03-06","Brisbane Roar","Australia","2026-06"],
+  ["Susan Duah","W","Ghana","Ghana","CB",2002,"2002-02-03","Racing Power","Portugal","2026-06"],
+  ["Elisha N'Dow","W","England",null,"CB",1996,"1996-10-13","Charlton Athletic","England","2025-06"],
+  ["Julia Olsson","W","Sweden",null,"CB/RB",1997,"1997-01-31","IF Brommapojkarna","Sweden","2025-12"],
+  ["Gracie Knutzen","W","USA",null,"LCB",2002,"2002-03-11","BGC CAS","Thailand","2025-08"],
+  ["Grace Pettet","W","USA",null,"LCB",null,null,"Racing Power","Portugal","2026-06"],
+  ["Madison Ayson","W","USA","USA","CB",2001,null,"Sydney FC","Australia",null],
+  ["Malia Steinmetz","W","New Zealand","New Zealand","DM",1999,"1999-01-18","FC Nordsjaelland","Denmark","2024-06"],
+  ["Lily Farkas","W","Hungary / USA","Hungary U19","CAM/CM",2001,null,"Fram Reykjavík","Iceland","2025-12"],
+  ["Moa Liwendahl","W","Sweden",null,"CM",1999,"1999-05-19","Bollstanäs SK","Sweden","2025-12"],
+  ["Sarah Taylor","W","Canada","Canada U20","CM",1996,"1996-06-12","Halifax Tides",null,null],
+  ["Frankie Finlayson","W","Canada",null,"CM",2006,"2006-11-09","Charlton Athletic","England","2026-06"],
+  ["Monique Robinson","W","England",null,"CM",2004,"2004-10-13","West Bromwich Albion","England","2025-06"],
+  ["Marissa Sheva","W","Ireland / USA",null,"CM",1997,"1997-04-22","Sunderland","England","2026-06"],
+  ["Amelia Brown","W","USA",null,"CM",2004,"2004-02-20","UNC Charlotte","USA","2025-12"],
+  ["Evelyn Badu","W","Ghana","Ghana","ST/AM",2002,"2002-09-11","Molde FK","Norway","2025-07"],
+  ["Ischia Brooking","W","Australia / England","Australia U17","AM",2008,"2008-11-23","Perth Glory","Australia","2025-06"],
+  ["Victoria Kalaberova","W","Slovakia","Slovakia","AM",2001,"2001-07-07","GKS Katowice","Poland","2027-06"],
+  ["Zahmena Malik","W","England / Pakistan","Pakistan","AM",2001,"2001-12-21","Lakatamia FC","Cyprus","2026-06"],
+  ["Giulianna Gianini","W","USA",null,"AM",null,null,null,null,null],
+  ["Karin Muya","W","England",null,"LW/RW",1995,"1995-03-26","Watford","England","2025-06"],
+  ["Alicia Terhart","W","South Africa",null,"RW/LW",2004,"2004-10-16","TS Galaxy","South Africa","2024-12"],
+  ["Alana Cortellino","W","Australia",null,"RW/LW",2006,"2006-12-10","Western United","Australia","2025-05"],
+  ["Lucy Fitzgerald","W","England",null,"RWB",2000,"2000-12-29","Charlton Athletic","England","2026-06"],
+  ["Anna Grey","W","England","England U19","RW",2002,"2002-02-11","Wolves","England","2026-06"],
+  ["Kiara Bercelli","W","Italy / New Zealand","New Zealand","RW/LW",2005,"2005-02-23","Auckland United","New Zealand","2025-10"],
+  ["Aqsa Mushtaq","W","England",null,"LW/RW/AM",1998,"1998-08-20","Ünye Gücü FK",null,null],
+  ["Hasnath Ubamba","W","Tanzania","Tanzania","RW/LW",2006,"2006-07-08","Madrid CFF","Spain",null],
+  ["Laila El Behery","W","Egypt","Egypt","RW/LW",2003,"2003-09-14","FC Nordsjaelland","Denmark",null],
+  ["Sakura Leong","W","Australia","Australia U17","RW/LW",2009,"2009-05-25",null,null,null],
+  ["Natalie Beckman","W","USA",null,"Wing Forward",2000,"2000-03-25","Free agent (last club: Sparta Prague)","Czechia","free"],
+  ["Fiona Worts","W","England",null,"Centre Forward",1996,"1996-01-30","Adelaide United","Australia","2026-06"],
+  ["Jacqui Hand","W","England / New Zealand","New Zealand","Winger / Second Striker",1999,"1999-02-19","Kolbotn IL","Norway","2025-12"],
+  ["Sabitra Bhandari","W","Nepal","Nepal","Centre Forward",1996,"1996-05-23","Wellington Phoenix","New Zealand","2027-06"],
+  ["Brooke Nunn","W","England / Nigeria",null,"Striker",1993,"1993-02-04","Central Coast Mariners","Australia","2025-05"],
+  ["Makala Woods","W","USA",null,"Centre Forward",2002,"2002-09-04","Wellington Phoenix","New Zealand","2025-12"],
+  ["Tiana Fuller","W","Australia",null,"Centre Forward",2008,"2008-07-28","Central Coast Mariners","Australia","2025-06"],
+  ["Emma Main","W","New Zealand",null,"Centre Forward / Winger",1999,"1999-10-19","Wellington Phoenix","New Zealand","2025-06"],
+  ["Nicole Douglas","W","England",null,"Centre Forward",2000,"2000-07-31","Free agent (last club: DC Power FC)","USA","free"],
+  ["Megan Bradley","W","England",null,"Striker",2004,"2004-04-27","UNC Charlotte","USA","2026-05"],
+  ["Kyra Carusa","W","USA / Ireland",null,"Centre Forward",1995,"1995-11-14","HB Køge","Denmark",null],
+  ["Elliana Martin","W","England",null,"Centre Forward / Winger",2006,"2006-12-08","Brighton & Hove Albion","England",null],
+  ["Victoria Mbali","W","Zambia","Zambia U17","Centre Forward",2008,"2008-02-21",null,null,null],
+  ["Aoibheann Clancy","W","Ireland",null,"CM",2003,"2003-10-31","Shelbourne","Ireland",null],
+  ["Cynthia Salha","W","Lebanon","Lebanon","ST/LW",2003,"2003-01-12","Lakatamia FC","Cyprus",null],
+  ["Ella Tonkin","W","Australia",null,"CB",2002,"2002-12-14","Adelaide United","Australia",null],
+  ["Grace Gordon","W","USA",null,"GK",2000,"2000-10-10","Free agent",null,"free"],
+  ["Maggie Jenkins","W","New Zealand","New Zealand","ST",2001,"2001-06-14","Wellington United","New Zealand",null],
+  ["Suha Hirani","W","Pakistan","Pakistan","AM/DM",1997,"1997-07-21","Karachi City FC","Pakistan",null],
+  ["Theo Mouithys","W","Australia","Australia U17","Centre Forward",2009,"2009-02-05",null,null,null],
+
+  // ---------- MEN ----------
+  ["Jacob Buchanan","M","Australia",null,"GK",2008,"2008-08-31","Western United","Australia",null],
+  ["Anton Herrting","M","Sweden",null,"CB/LB",2007,"2007-04-10","Huddinge IF","Sweden","2025-12"],
+  ["Trokon Yancy","M","Liberia",null,"LB/LWB",2004,"2004-02-27","Fassell FC","Liberia","2025-06"],
+  ["Ibrahim Doumbia Khalil","M","Ivory Coast",null,"CB",2001,"2001-03-22","ASEC Mimosas","Ivory Coast","2026-06"],
+  ["Jonas Hakkinen","M","Finland / Canada","Finland U21","CB/DM",1999,"1999-03-21","Kerry FC","Ireland",null],
+  ["Jonah Townsend","M","Australia",null,"CB",2005,"2005-12-07","Sunshine Coast Wanderers","Australia","2025-12"],
+  ["Misha Gumede","M","Sweden / South Africa",null,"CB",2006,"2006-08-23","Halmstads BK","Sweden","2025-11"],
+  ["Kelvin Kalua","M","New Zealand / Malawi",null,"RB/RCB",1999,"1999-07-10","Eastern Suburbs","New Zealand","2025-06"],
+  ["Panos Kazelis","M","Greece",null,"DM",2008,"2008-01-10",null,null,null],
+  ["Brandt Bronico","M","USA",null,"CM",1995,"1995-06-20","Charlotte FC","USA","2025-12"],
+  ["Jordan Lauton","M","Australia",null,"CM",2003,"2003-04-01","Brisbane Roar","Australia","2025-06"],
+  ["Fredrick Bono","M","Liberia",null,"CM",2008,"2008-01-03","LPRC Oilers","Liberia","2026-06"],
+  ["Lamine Debosan Niang","M","Ivory Coast",null,"AM",2006,"2006-12-15","San Pedro FC","Ivory Coast","2025-06"],
+  ["Yosuke Hanya","M","Japan",null,"AM",1999,"1999-01-30","Colorado Springs Switchbacks","USA","2025-12"],
+  ["Stavros Zarokostas","M","USA / Greece",null,"CF/RW/LW",1997,"1997-11-05","One Knoxville SC","USA","2025-12"],
+  ["Abel Walatee","M","Australia / Ghana","Australia U23","LW/RW",2004,"2004-02-22","Sydney FC","Australia","2026-06"],
+  ["Cian Bargary","M","Ireland",null,"RW",2000,"2000-11-22","Cobh Ramblers","Ireland","2025-11"],
+  ["Miles De Luca","M","Australia",null,"RW/LW",2008,"2008-02-12","SC Wanderers","Australia","2025-12"],
+  ["Ahmed Faraz Gulzari","M","Australia / Pakistan",null,"RW/LW",2007,"2007-06-26","Melbourne City","Australia","2025-12"],
+  ["Darius Garmondeh","M","Liberia",null,"ST",2005,"2005-05-15","Watanga FC","Liberia","2026-06"],
+  ["Vukota Isakovski","M","Serbia",null,"ST",2007,"2007-12-20","FK Mačva Šabac","Serbia","2026-06"],
+  ["Vasilije Novicic","M","Serbia",null,"LW",2008,"2008-05-07","FK IMT Belgrade","Serbia",null],
+  ["Tin Antoljak","M","Croatia",null,"ST",2005,"2005-10-14","NK Vuteks-Sloga","Croatia","2026-06"],
+].map(r => ({
+  name:r[0], gender:r[1], nationality:r[2], nationalTeam:r[3], position:r[4],
+  birthYear:r[5], birthday:r[6], club:r[7], clubCountry:r[8], contractEnd:r[9],
+}));
+
+/* ============================================================
+   FULL PROFILE DETAILS — keyed by player id (name slug).
+   Source: Sisu player profiles 2026. Only what the profile states.
+   ============================================================ */
+const PROFILES = {
+  "abel-walatee": { foot:"Left", height:177,
+    skills:["Ball control in tight spaces","Dribbling","Distribution"],
+    history:["Western United to Sydney FC · 25/26","Western United U21 to Western United · 24/25","Academic BK to Western United U21 · 23/24","Western United U21 to Academic BK · 22/23"],
+    video:[["Highlight reel","https://vimeo.com/thepfa/walatee2025"]] },
+  "anna-heilferty": { foot:"Right", height:163,
+    skills:["Defensive awareness","Stamina","Crossing","Passing","Composure"],
+    history:["Washington Spirit to Houston Dash · 25/26","Boston University Terriers to Washington Spirit · 20/21"],
+    video:[["Highlight reel","https://youtu.be/50jULWbDh0Y"]] },
+  "aoibheann-clancy": { foot:"Right", height:169,
+    skills:["Playmaker","High work ethic","Positional awareness","Defensive awareness"],
+    history:["Wexford FC to Shelbourne · 24/25","Wexford Youths to Wexford FC · 23/24","Limerick FC Academy to Wexford Youths · 19/20","Tipperary Town to Limerick FC Academy · 17/18"] },
+  "aqsa-mushtaq": { foot:"Left", height:167,
+    skills:["Creativity","Vision","Tactical understanding","Decision-making"],
+    history:["Ünye Gücü FK · current","OFI · 2025","Lewes · 2023–2025","Ergotelis · 2023","Avantes Chalkidas · 2022–2023","Roma (loan) · 2021–2022","Napoli · 2020–2021"],
+    video:[["Highlight reel","https://www.youtube.com/watch?v=U2I1czVXeN8"]] },
+  "cynthia-salha": { foot:"Right", height:162,
+    skills:["First touch","Vision","Speed with the ball","Creativity","Decision-making"],
+    history:["Lakatamia FC · current","Beirut Football Academy","SAFA WFC","Akhaa Ahli Aley WFC"],
+    video:[["Highlights channel","https://www.youtube.com/@CynthiaSalha11"]] },
+  "ella-tonkin": { foot:"Right", height:170,
+    skills:["Defensive resilience","Precise distribution","Dominant in the air","Work ethic and stamina","Game intelligence","Composure under pressure","Recovery speed","Leadership and communication"],
+    history:["Joined Adelaide United · 19/20"],
+    video:[["Highlight reel","https://youtu.be/elM1y0mEjf0"]] },
+  "evelyn-badu": { foot:"Right", height:166,
+    skills:["Attacking positioning","Technical, precise dribbling","Ball control","Finishing","Agility"],
+    history:["FC Fleury 91 to Molde FK · 24/25","Avaldsnes IL to FC Fleury 91 · 22/23","Hasaacas Ladies to Avaldsnes IL · 21/22"],
+    video:[["Highlight reel","https://youtu.be/GLt0fADM-M8"]] },
+  "fiona-worts": { foot:"Right",
+    skills:["Finishing","Intelligent positioning","Playmaking","Progressive passing","High work rate","Aerial ability","Defensive contribution","Dribbling and 1v1"],
+    video:[["Highlight reel","https://youtu.be/uy8NuLEZIDg"]] },
+  "grace-gordon": { foot:"Right", height:177,
+    skills:["Shot stopping","Claiming crosses","Distribution"],
+    history:["Oklahoma State Cowgirls to Kansas City Current · 25/26"],
+    video:[["Highlight reel","https://www.youtube.com/watch?v=wxTVFgO8Z-w"]] },
+  "gracie-knutzen": { foot:"Left", height:165,
+    skills:["Consistency","Slide tackling","Defensive awareness","Pace"],
+    history:["Utah Tech University (NCAA D1)","Snow College"],
+    video:[["Highlight reel","https://youtu.be/mE7C-09lbTw"],["Full game 1 (no. 22)","https://www.youtube.com/watch?v=UUrPk9gV_lY"],["Full game 2 (no. 22)","https://www.youtube.com/live/uii-rASRrjw"],["Full game 3 (no. 22)","https://www.youtube.com/live/9erzX5kbr40"]] },
+  "hasnath-ubamba": { foot:"Both", height:157,
+    skills:["Attacking positioning","Finishing","Creativity","Pace","Stamina","Technical quality"],
+    history:["Fountain Gate Princess to FC Masar · 24/25"] },
+  "jacqui-hand": { foot:"Right", height:169,
+    skills:["Goalscoring","Dribbling and agility","1v1","Versatile across the wing"],
+    history:["Lewes FC to Kolbotn IL · 25/26","Lewes FC to Sheffield United · 24/25","Åland United to Lewes FC · 23/24","Colorado College Tigers to Åland United · 21/22","Eastern Suburbs AFC to Colorado College Tigers · 18/19"],
+    video:[["Highlight reel","https://youtu.be/gSuae8aP-XQ"]] },
+  "jonas-hakkinen": { foot:"Right", height:186,
+    skills:["Aerial ability","Defensive awareness","Consistency","Passing accuracy","Technical quality"],
+    history:["Cobh Ramblers to Kerry FC · 25/26","Cork City to Cobh Ramblers · 24/25","FC Haka to Cork City · 20/21","VPS to FC Haka · 19/20","Whitecaps Academy to VPS · 18/19"],
+    video:[["Highlight reel","https://youtu.be/xvpyReOKI-M"]] },
+  "julia-olsson": { foot:"Right", height:168,
+    skills:["Positional versatility","Reliable defensively","Consistency"],
+    history:["AIK to IF Brommapojkarna · 22/23","IF Brommapojkarna to AIK · 21/22","Embry-Riddle Eagles to IF Brommapojkarna · 19/20","IF Brommapojkarna to Embry-Riddle Eagles · 17/18"] },
+  "kate-taylor": { foot:"Right", height:174,
+    skills:["Solid defender","Precise distribution","Physical presence","Work rate","Tactical awareness","Calm under pressure","Defensive leader"],
+    history:["Wellington Phoenix FC to Dijon FCO · 24/25","Canterbury United Pride to Wellington Phoenix FC · 21/22"],
+    video:[["Highlight reel","https://youtu.be/6CGYw2NZ22c"]] },
+  "kiara-bercelli": { foot:"Right",
+    skills:["Pace","Finishing","Technical quality","Clinical passing"],
+    history:["UC Sampdoria to Auckland United FC · 25/26","Chievo Women FM to UC Sampdoria · 23/24","UC Sampdoria to Chievo Women FM · 23/24","Alamein FC to UC Sampdoria · 22/23"] },
+  "kyra-carusa": { foot:"Right", height:170,
+    skills:["Attacking positioning","Strength","Ball control","Finishing"],
+    history:["London City Lionesses to San Diego Wave FC · 24/25","HB Køge to London City Lionesses · 22/23","Le Havre AC to HB Køge · 19/20","Georgetown Hoyas to Le Havre AC · 18/19","Stanford Cardinal to Georgetown Hoyas · 18/19"] },
+  "lily-farkas": { foot:"Right", height:165, passport:"EU passport",
+    fitness:"Sustained an ankle injury in July that kept her out until the end of the season in October. She will be fully fit to play by the beginning of January.",
+    physical:{ source:"Fram GPS individual weekly report · weeks 33–37",
+      cols:[["td","Total Distance"],["hsr","HSR Absolute"],["spr","Sprint Distance"],["max","Max Speed"],["hiacc","HIACC"],["acc","ACC"],["hidec","HIDEC"],["dec","DEC"]],
+      weeks:[
+        { wk:37, td:16674, hsr:637, spr:431, max:28.1, hiacc:9,  acc:106, hidec:28, dec:102 },
+        { wk:36, td:13763, hsr:522, spr:259, max:26.5, hiacc:20, acc:78,  hidec:22, dec:75 },
+        { wk:35, td:10465, hsr:145, spr:74,  max:27.7, hiacc:8,  acc:57,  hidec:7,  dec:54 },
+        { wk:34, td:23654, hsr:589, spr:283, max:26.7, hiacc:21, acc:130, hidec:19, dec:118 },
+        { wk:33, td:11353, hsr:329, spr:202, max:27.5, hiacc:15, acc:89,  hidec:9,  dec:53 },
+      ] },
+    links:[["Soccerdonna profile","https://www.soccerdonna.de/en/lily-farkas/leistungsdaten/spieler_40152.html"]],
+    skills:["Ball control in tight spaces","Positional awareness in attacking zones","Key passes","Finishing","Stamina and work rate","Recovery runs"],
+    history:["Fram Reykjavík (Iceland, top flight) · Jan 2025 to present","Fortuna Hjørring to Fram Reykjavík · 24/25","Florida State Seminoles to Fortuna Hjørring · 23/24","Michigan Wolverines to Florida State Seminoles · 22/23"],
+    video:[["2025 · Fram, Iceland","https://youtu.be/nWvWabG5L3o"],["2024 highlights","https://youtu.be/fS1HaL6KqCI"]] },
+  "maggie-jenkins": { foot:"Right",
+    skills:["Passing accuracy","Combination play","Finishing","Positioning","Aerial ability"],
+    history:["ALG Sport to Wellington United","UCF Knights to ALG Sport · 24/25","Northern Lights to UCF Knights · 20/21"],
+    achievements:["Golden Boot · 2025","15 goals and 8 assists in 9 games · 2025"],
+    video:[["Highlight reel 1","https://www.youtube.com/watch?v=398-YP067LM"],["Highlight reel 2","https://youtu.be/jal14xzcdpw"]] },
+  "makala-woods": { foot:"Right", height:168,
+    skills:["Pace","1v1 with goalkeepers","Penalties","Physicality","Athleticism","Strong left foot"],
+    history:["Kentucky Wildcats to UMF Tindastóll · 24/25","Illinois Fighting Illini to Kentucky Wildcats · 24/25"],
+    video:[["Full game","https://youtu.be/by-wDe5CkmM"]] },
+  "mikki-easter": { foot:"Right", height:172,
+    skills:["Quick reactions","Refined technique","Strong off the line","1v1 situations"],
+    history:["Milwaukee Torrent (WPSL) · 3 seasons, 22 games, 1,790 minutes"],
+    achievements:["Lake Michigan Division Champions · 2022, 2023, 2024","Central Region Semi-Finalist · 2023","WPSL All-Central Region Team · 2023","WPSL Midwest Conference Lake Michigan Division Best XI · 2022, 2023"],
+    video:[["Highlight reel","https://www.youtube.com/watch?v=_n-M0TYBrt4"]] },
+  "nicole-douglas": { foot:"Right", height:170,
+    skills:["Versatile in attack","Professional mindset","Technical ability","Off-the-ball movement"],
+    history:["London City Lionesses to DC Power FC · 24/25","Washington Spirit to London City Lionesses · 23/24","Arizona State Sun Devils to Washington Spirit · 22/23","Chelsea U21 to Arizona State Sun Devils · 18/19","Chelsea U16 to Chelsea U21 · 16/17"] },
+  "sophie-whitehouse": { foot:"Right",
+    skills:["Consistent shot stopper","Commanding presence in the box","Composure under pressure","Long-range distribution"],
+    history:["Lewes FC to Charlton Athletic · 24/25","Bristol City to Lewes FC · 22/23","Birmingham City to Bristol City · 21/22","Tottenham Hotspur to Birmingham City · 20/21","Santa Clara Broncos to Tottenham Hotspur · 20/21","Columbia Lions to Santa Clara Broncos · 19/20"] },
+  "stavros-zarokostas": { foot:"Right", height:170,
+    history:["AO Egaleo to One Knoxville SC · 24/25","FC Haka to AO Egaleo · 23/24","Charleston to FC Haka · 21/22"] },
+  "suha-hirani": { foot:"Right", height:160,
+    skills:["Midfield leadership and communication","Tempo control and game management","Progressive passing and build-up","Ball retention under pressure","Tactical intelligence","Calm decision-making under pressure"],
+    video:[["Highlight reel","https://www.youtube.com/watch?v=J7C8hcRtZLU"]] },
+  "vasilije-novicic": { foot:"Right", height:175,
+    skills:["Ball control in tight spaces","Shielding the ball","Distribution","Strength on the ball"],
+    history:["FK Ole U17 to FK IMT Belgrade · 24/25","Joined FK Ole U17 · 23/24"],
+    video:[["Highlight reel","https://www.youtube.com/watch?v=3xOufSu8z9U"]] },
+  "yosuke-hanya": { foot:"Right", height:173,
+    skills:["Attacking positioning","Ball control","Creativity","Stamina","Technical quality"],
+    history:["Colorado Springs Switchbacks 2 to Switchbacks FC · 23/24","UMass to Colorado Springs Switchbacks 2 · 21/22","UMass to Western Mass (loan) · 20/21","UMass to SF City FC (loan) · 18/19","Tokyo Gakugei to UMass · 18/19","FC Tokyo U18 to Tokyo Gakugei · 16/17"] },
+  "zahmena-malik": { foot:"Right", height:168,
+    skills:["First touch","Technical playmaker","Creative passing","Creativity"],
+    history:["Lakatamia FC · current","Alhmmah","London Seward"] },
+};
+
+/* ============================================================
+   BIOS — one per player. Leave "" until Sisu supplies the text;
+   an empty bio is simply not shown.
+   ============================================================ */
+const BIOS = {
+  "sophie-whitehouse": "",
+  "anna-pedersen": "",
+  "amanda-brunholt": "",
+  "sarah-hornschuch": "",
+  "zoe-edwards": "",
+  "mikki-easter": "",
+  "kerry-abello": "",
+  "chloe-mustaki": "",
+  "anna-heilferty": "",
+  "sophie-o-rourke": "",
+  "olivia-page": "",
+  "isabel-hodgson": "",
+  "zoe-mcmeeken": "",
+  "caragh-hamilton": "",
+  "mia-golding": "",
+  "rebekah-trewhitt": "",
+  "wakana-mitani": "",
+  "lizzie-anton": "",
+  "kate-taylor": "",
+  "vyan-sampson": "",
+  "rafanny-mendoza": "",
+  "ruby-cuthbert": "",
+  "susan-duah": "",
+  "elisha-n-dow": "",
+  "julia-olsson": "",
+  "gracie-knutzen": "",
+  "grace-pettet": "",
+  "madison-ayson": "",
+  "malia-steinmetz": "",
+  "lily-farkas": "A creative player who can also contribute with goals. Lily also has a good work rate and positional discipline to match her flair for the game. She operates best as a central attacking midfielder but can also be deployed in a deeper playmaker role and even as a second striker. Lily is essentially an American player developed in the USA who has a Hungarian parent.",
+  "moa-liwendahl": "",
+  "sarah-taylor": "",
+  "frankie-finlayson": "",
+  "monique-robinson": "",
+  "marissa-sheva": "",
+  "amelia-brown": "",
+  "evelyn-badu": "",
+  "ischia-brooking": "",
+  "victoria-kalaberova": "",
+  "zahmena-malik": "",
+  "giulianna-gianini": "",
+  "karin-muya": "",
+  "alicia-terhart": "",
+  "alana-cortellino": "",
+  "lucy-fitzgerald": "",
+  "anna-grey": "",
+  "kiara-bercelli": "",
+  "aqsa-mushtaq": "",
+  "hasnath-ubamba": "",
+  "laila-el-behery": "",
+  "sakura-leong": "",
+  "natalie-beckman": "",
+  "fiona-worts": "",
+  "jacqui-hand": "",
+  "sabitra-bhandari": "",
+  "brooke-nunn": "",
+  "makala-woods": "",
+  "tiana-fuller": "",
+  "emma-main": "",
+  "nicole-douglas": "",
+  "megan-bradley": "",
+  "kyra-carusa": "",
+  "elliana-martin": "",
+  "victoria-mbali": "",
+  "aoibheann-clancy": "",
+  "cynthia-salha": "",
+  "ella-tonkin": "",
+  "grace-gordon": "",
+  "maggie-jenkins": "",
+  "suha-hirani": "",
+  "theo-mouithys": "",
+  "jacob-buchanan": "",
+  "anton-herrting": "",
+  "trokon-yancy": "",
+  "ibrahim-doumbia-khalil": "",
+  "jonas-hakkinen": "",
+  "jonah-townsend": "",
+  "misha-gumede": "",
+  "kelvin-kalua": "",
+  "panos-kazelis": "",
+  "brandt-bronico": "",
+  "jordan-lauton": "",
+  "fredrick-bono": "",
+  "lamine-debosan-niang": "",
+  "yosuke-hanya": "",
+  "stavros-zarokostas": "",
+  "abel-walatee": "",
+  "cian-bargary": "",
+  "miles-de-luca": "",
+  "ahmed-faraz-gulzari": "",
+  "darius-garmondeh": "",
+  "vukota-isakovski": "",
+  "vasilije-novicic": "",
+  "tin-antoljak": "",
+};
+
+const CONTACT_EMAIL = "info@sisusportsmanagement.com";
+
+/* ---------- Windows ---------- */
+const WINDOWS = {
+  now:     { key:"now",     label:"Available now",        short:"Available now",   badge:"now",
+             blurb:"Out of contract or without a club. Can sign outside a window where league rules allow." },
+  winter:  { key:"winter",  label:"Free · Winter 2027",    short:"Winter 2027",     badge:"winter",
+             blurb:"Club contracts end December 2026. Free to join for the January 2027 window." },
+  summer:  { key:"summer",  label:"Contract ends · Summer 2027", short:"Summer 2027", badge:"summer",
+             blurb:"Club contracts end by June 2027. Pre-contract talks open now in many leagues." },
+  request: { key:"request", label:"Status on request",     short:"On request",      badge:"",
+             blurb:"Contract status available from the Sisu team on enquiry." },
+};
+function windowOf(p){
+  const c = p.contractEnd;
+  if (!c) return "request";
+  if (c === "free") return "now";
+  const [y,m] = c.split("-").map(Number);
+  const today = new Date(), ym = y*12 + (m-1), nowYm = today.getFullYear()*12 + today.getMonth();
+  if (ym < nowYm) return "now";
+  if (y === 2026 && m === 12) return "winter";
+  if (y === 2027 && m <= 6) return "summer";
+  if (ym === nowYm) return "now";
+  return "request";
+}
+
+/* ---------- Positions ---------- */
+const POSITIONS = {
+  gk:  { key:"gk",  label:"Goalkeepers", short:"GK" },
+  def: { key:"def", label:"Defenders",   short:"Full-backs & centre-backs" },
+  mid: { key:"mid", label:"Midfielders", short:"Holding, central & attacking" },
+  fwd: { key:"fwd", label:"Wingers & Forwards", short:"Wide players & strikers" },
+};
+function groupOf(pos){
+  const p = pos.toUpperCase();
+  const first = p.split(/[\/ ]/)[0];
+  if (first === "GK") return "gk";
+  if (/^(LB|RB|CB|LCB|RCB|LWB|RWB)$/.test(first)) return "def";
+  if (/^(DM|CM|AM|CAM|CDM|LM|RM)$/.test(first)) return "mid";
+  return "fwd";
+}
+
+/* ---------- Nationality regions ----------
+   A dual national appears under every region they hold a nationality in. */
+const REGIONS = {
+  uki:  "UK & Ireland",
+  eur:  "Europe",
+  afr:  "Africa",
+  apac: "Asia-Pacific",
+  me:   "Middle East",
+  nam:  "North America & Canada",
+  sam:  "South America",
+};
+const COUNTRY_REGION = {
+  "England":"uki","British":"uki","Ireland":"uki","Northern Ireland":"uki","Scotland":"uki","Wales":"uki",
+  "Sweden":"eur","Denmark":"eur","Hungary":"eur","Slovakia":"eur","Italy":"eur","Finland":"eur","Greece":"eur","Serbia":"eur","Croatia":"eur",
+  "Ghana":"afr","South Africa":"afr","Tanzania":"afr","Egypt":"afr","Zambia":"afr","Liberia":"afr","Ivory Coast":"afr","Nigeria":"afr","Malawi":"afr",
+  "Australia":"apac","New Zealand":"apac","Japan":"apac","Nepal":"apac","Pakistan":"apac",
+  "Lebanon":"me",
+  "USA":"nam","Canada":"nam",
+  "Venezuela":"sam",
+};
+function regionsOf(p){
+  const out = new Set();
+  (p.nationality || "").split("/").map(c => c.trim()).forEach(c => { if (COUNTRY_REGION[c]) out.add(COUNTRY_REGION[c]); });
+  return [...out];
+}
+/* Age bounds: exact with a birthday, a one-year span with birth year only. */
+function ageBounds(p){
+  const a = age(p);
+  if (a !== null) return [a, a];
+  if (p.birthYear){ const y = new Date().getFullYear() - p.birthYear; return [y - 1, y]; }
+  return null;
+}
+
+/* ---------- Helpers ---------- */
+const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+PLAYERS.forEach(p => { p.id = slug(p.name); p.window = windowOf(p); p.group = groupOf(p.position); p.profile = PROFILES[p.id] || {}; p.bio = BIOS[p.id] || ""; p.regions = regionsOf(p); });
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initials = n => n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0,2).join("").toUpperCase();
+function age(p){
+  if (p.birthday){
+    const b = new Date(p.birthday + "T00:00:00"), t = new Date();
+    let a = t.getFullYear() - b.getFullYear();
+    if (t.getMonth() < b.getMonth() || (t.getMonth() === b.getMonth() && t.getDate() < b.getDate())) a--;
+    return a;
+  }
+  return null;
+}
+function ageText(p){
+  const a = age(p);
+  if (a !== null) return a + " yrs";
+  if (p.birthYear) return "Born " + p.birthYear;
+  return null;
+}
+function fmtDate(iso){
+  if (!iso) return null;
+  return new Date(iso + "T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+}
+function fmtContract(p){
+  if (!p.contractEnd) return null;
+  if (p.contractEnd === "free") return "Free agent";
+  const [y,m] = p.contractEnd.split("-").map(Number);
+  return new Date(y, m-1, 1).toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+}
+function mailto(subject, body){
+  return "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+}
+function enquiryLink(p){
+  return mailto("Player enquiry: " + p.name,
+    "Hello Sisu team,\n\nWe would like more information on " + p.name + " (" + p.position + ").\n\nClub:\nContact name:\nRole:\nPhone / WhatsApp:\n\nThank you.");
+}
+const shortlistLink = mailto("Tailored shortlist request",
+  "Hello Sisu team,\n\nWe are recruiting and would like a tailored shortlist.\n\nMen's / Women's team:\nPosition:\nMarket / league:\nAge range:\nKey characteristics:\nBudget range:\nTransfer window:\nAdditional notes:\n\nClub:\nContact name:\nPhone / WhatsApp:");
+
+const ICON = {
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z" fill="currentColor"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+};
+
+/* ---------- Routing (all views live on this one page) ---------- */
+function parseHash(){
+  const h = location.hash.replace(/^#\/?/, "");
+  const [path, qs] = h.split("?");
+  const parts = path.split("/").filter(Boolean);
+  const q = Object.fromEntries(new URLSearchParams(qs || ""));
+  return { parts, q };
+}
+function go(parts, q){
+  const qs = q ? new URLSearchParams(Object.entries(q).filter(([,v]) => v && v !== "all")).toString() : "";
+  location.hash = "#/" + parts.join("/") + (qs ? "?" + qs : "");
+}
+window.addEventListener("hashchange", () => render());
+
+/* ---------- Shared blocks ---------- */
+function trustLine(){
+  return `<div class="trust">
+    <span>${ICON.check} Direct agency contact</span>
+    <span>${ICON.check} Player information checked before publication</span>
+    <span>${ICON.check} Represented by Sisu Sports Management</span>
+  </div>`;
+}
+function ctaBlock(title){
+  return `<section class="block"><div class="wrap">
+    <div class="cta">
+      <div>
+        <div class="eyebrow">Tailored shortlists</div>
+        <h2>${esc(title || "Looking for a specific profile?")}</h2>
+        <p>Tell us the position, market, key characteristics and budget. We will come back with players who fit, including profiles not listed here.</p>
+        <div class="actions">
+          <a class="btn solid" href="${shortlistLink}">${ICON.mail} Request a shortlist</a>
+          <a class="btn ghost" href="#/list">Browse all players ${ICON.arrow}</a>
+        </div>
+      </div>
+      <ul>
+        <li>Men's and women's players</li>
+        <li>Offices in the UK, USA, Australia, Ivory Coast and Nigeria</li>
+        <li>Players across Europe, Africa, the Americas and Asia-Pacific</li>
+      </ul>
+    </div>
+  </div></section>
+  <div class="wrap">
+    <div class="contact">
+      <div><strong>Recruitment enquiries</strong><br>Sisu Sports Management</div>
+      <div><a class="btn dark" href="mailto:${CONTACT_EMAIL}">${ICON.mail} ${CONTACT_EMAIL}</a></div>
+    </div>
+    <p class="disclaimer">Contract and availability information is indicative and confirmed with Sisu on enquiry. Player ages update automatically.</p>
+  </div>`;
+}
+function card(p){
+  const w = WINDOWS[p.window];
+  const club = [p.club, p.clubCountry].filter(Boolean).join(" · ");
+  const line1 = [p.position, ageText(p), p.profile.height ? p.profile.height + " cm" : null].filter(Boolean).join(" · ");
+  const tags = [];
+  if (p.nationalTeam) tags.push(p.nationalTeam + " international");
+  if (p.profile.passport) tags.push(p.profile.passport);
+  if (p.profile.video) tags.push("Video available");
+  tags.push(p.gender === "W" ? "Women" : "Men");
+  return `<article class="card">
+    <div class="top">
+      <div class="row">
+        <div class="avatar" aria-hidden="true">${esc(initials(p.name))}</div>
+        <span class="badge ${w.badge}">${esc(w.label)}</span>
+      </div>
+    </div>
+    <div class="body">
+      <h3><a href="#/player/${p.id}">${esc(p.name)}</a></h3>
+      <div class="meta">
+        <strong>${esc(line1)}</strong>
+        ${club ? `<span>${esc(club)}</span>` : ""}
+        <span>${esc(p.nationality)}</span>
+      </div>
+      <div class="tags">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+      <div class="actions"><a class="link-arrow" href="#/player/${p.id}">View full profile ${ICON.arrow}</a></div>
+    </div>
+  </article>`;
+}
+
+/* ---------- View: hub ---------- */
+function viewHub(){
+  const count = f => PLAYERS.filter(f).length;
+  const tile = (k, feature) => {
+    const w = WINDOWS[k];
+    return `<a class="tile ${feature ? "feature" : ""}" href="#/list?win=${k}">
+      <div><div class="eyebrow">Transfer window</div><h3>${esc(w.label)}</h3></div>
+      <div class="foot"><span class="count">${count(p => p.window === k)}</span><span class="go">View players ${ICON.arrow}</span></div>
+    </a>`;
+  };
+  const posRow = g => `<div class="gender-row">
+      <h3>${g === "W" ? "Women" : "Men"}</h3>
+      <div class="pos-grid">
+        ${Object.values(POSITIONS).map(ps => `<a class="pos" href="#/list?g=${g}&pos=${ps.key}">
+          <span><b>${ps.label}</b><small>${ps.short}</small></span>
+          <span class="n">${count(p => p.gender === g && p.group === ps.key)}</span>
+        </a>`).join("")}
+      </div>
+    </div>`;
+  return `
+  <header class="hero"><div class="wrap">
+    <div class="eyebrow">Sisu Sports Management · 2027 Transfer Windows</div>
+    <h1>Player Watchlist 2027</h1>
+    <p class="lead">Selected Sisu-represented players for clubs recruiting in the Winter and Summer 2027 windows. Men's and women's football.</p>
+    ${trustLine()}
+    <div class="hero-actions">
+      <a class="btn solid" href="#/list?win=winter">Free · Winter 2027 ${ICON.arrow}</a>
+      <a class="btn ghost" href="#/list?win=summer">Contract ends · Summer 2027</a>
+      <a class="btn ghost" href="#/list?win=now">Available now</a>
+    </div>
+  </div></header>
+
+  <section class="block alt"><div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">By window</div>
+      <h2>When can they join?</h2>
+      <p>Players grouped by when their current club contract ends.</p>
+    </div>
+    <div class="tiles">${tile("winter", true)}${tile("summer")}${tile("now")}</div>
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">By position</div>
+      <h2>Find the right profile faster</h2>
+      <p>Browse the full Sisu list by position, then narrow by window.</p>
+    </div>
+    ${posRow("W")}
+    ${posRow("M")}
+  </div></section>
+
+  ${ctaBlock()}`;
+}
+
+/* ---------- View: list ---------- */
+function viewList(q){
+  const g = q.g || "all", pos = q.pos || "all", win = q.win || "all", reg = q.reg || "all", s = (q.s || "").toLowerCase();
+  const amin = q.amin ? Number(q.amin) : null, amax = q.amax ? Number(q.amax) : null;
+  const ageOk = p => {
+    if (amin === null && amax === null) return true;
+    const b = ageBounds(p);
+    if (!b) return false;
+    return (amin === null || b[1] >= amin) && (amax === null || b[0] <= amax);
+  };
+  let list = PLAYERS.filter(p =>
+    (g === "all" || p.gender === g) &&
+    (pos === "all" || p.group === pos) &&
+    (win === "all" || p.window === win) &&
+    (reg === "all" || p.regions.includes(reg)) &&
+    ageOk(p) &&
+    (!s || [p.name, p.club, p.nationality, p.position, p.clubCountry].join(" ").toLowerCase().includes(s)));
+  const order = { winter:0, summer:1, now:2, request:3 };
+  list.sort((a,b) => order[a.window] - order[b.window] || a.group.localeCompare(b.group) || a.name.localeCompare(b.name));
+
+  const titleParts = [];
+  if (win !== "all") titleParts.push(WINDOWS[win].label);
+  const heading = pos !== "all" ? POSITIONS[pos].label : "All players";
+  const sub = [g === "W" ? "Women" : g === "M" ? "Men" : "Men & women", win !== "all" ? WINDOWS[win].short : "All windows"].join(" · ");
+  const blurb = win !== "all" ? WINDOWS[win].blurb : "Every player currently on the Sisu watchlist.";
+
+  const chips = (name, cur, opts) => `<div class="fgroup"><label>${name}</label>${
+    opts.map(([v, l]) => `<button class="chip" data-f="${name.toLowerCase()}" data-v="${v}" aria-pressed="${cur === v}">${l}</button>`).join("")}</div>`;
+
+  return `
+  <header class="hero list-hero"><div class="wrap">
+    <a class="crumb" href="#/">${ICON.back} 2027 Watchlist</a>
+    <div class="eyebrow">${esc(sub)}</div>
+    <h1>${esc(heading)}</h1>
+    <p class="lead">${esc(blurb)}</p>
+  </div></header>
+  <div class="filters"><div class="wrap">
+    ${chips("Team", g, [["all","All"],["W","Women"],["M","Men"]])}
+    ${chips("Position", pos, [["all","All"],["gk","GK"],["def","DEF"],["mid","MID"],["fwd","FWD"]])}
+    ${chips("Window", win, [["all","All"],["winter","Winter 27"],["summer","Summer 27"],["now","Now"]])}
+    <div class="fgroup"><label for="region">Region</label>
+      <select id="region" class="select" data-q="reg" aria-label="Nationality region">
+        <option value="all">All regions</option>
+        ${Object.entries(REGIONS).map(([k, l]) => `<option value="${k}" ${reg === k ? "selected" : ""}>${l}</option>`).join("")}
+      </select>
+    </div>
+    <div class="fgroup age"><label>Age</label>
+      <input class="num" type="number" inputmode="numeric" min="14" max="45" placeholder="Min" value="${esc(q.amin || "")}" data-q="amin" aria-label="Minimum age">
+      <span class="dash">to</span>
+      <input class="num" type="number" inputmode="numeric" min="14" max="45" placeholder="Max" value="${esc(q.amax || "")}" data-q="amax" aria-label="Maximum age">
+    </div>
+    <input class="search" data-q="s" type="search" placeholder="Search name, club, country" value="${esc(q.s || "")}" aria-label="Search players">
+  </div></div>
+  <section><div class="wrap">
+    <p class="result-count">${list.length} player${list.length === 1 ? "" : "s"}${
+      reg !== "all" ? " · dual nationals appear under each of their regions" : ""}${
+      amin !== null || amax !== null ? " · players without a recorded birth year are hidden while filtering by age" : ""}</p>
+    ${list.length ? `<div class="cards">${list.map(card).join("")}</div>`
+      : `<div class="empty">No players match these filters. <a href="${shortlistLink}">Ask us for a tailored shortlist</a>.</div>`}
+  </div></section>
+  ${ctaBlock("Looking for a different profile?")}`;
+}
+
+/* ---------- View: profile ---------- */
+function physicalBlock(ph){
+  const fmt = v => typeof v === "number" ? v.toLocaleString("en-GB") : esc(v);
+  const peak = k => Math.max(...ph.weeks.map(w => w[k]));
+  return `<div class="detail"><h3>Physical Data</h3>
+    <div class="phys-tiles">
+      <div class="phys-tile"><span>Peak Max Speed</span><b>${fmt(peak("max"))}</b></div>
+      <div class="phys-tile"><span>Highest weekly Total Distance</span><b>${fmt(peak("td"))}</b></div>
+      <div class="phys-tile"><span>Highest weekly Sprint Distance</span><b>${fmt(peak("spr"))}</b></div>
+    </div>
+    <div class="phys-table"><table>
+      <thead><tr><th>Week</th>${ph.cols.map(([, l]) => `<th>${esc(l)}</th>`).join("")}</tr></thead>
+      <tbody>${ph.weeks.map(w => `<tr><td>${w.wk}</td>${ph.cols.map(([k]) => `<td>${fmt(w[k])}</td>`).join("")}</tr>`).join("")}</tbody>
+    </table></div>
+    <p class="phys-src">Source: ${esc(ph.source)}. HSR = high-speed running; HIACC / HIDEC = high-intensity accelerations / decelerations; ACC / DEC = accelerations / decelerations.</p>
+  </div>`;
+}
+function detailBlocks(p){
+  const pr = p.profile, out = [];
+  if (p.bio) out.push(`<div class="detail"><h3>About</h3><p class="bio">${esc(p.bio)}</p></div>`);
+  if (pr.fitness) out.push(`<div class="detail"><h3>Injury Status</h3><p class="bio">${esc(pr.fitness)}</p></div>`);
+  if (pr.video && pr.video.length) out.push(`<div class="detail"><h3>Video</h3><div class="video-links">${
+    pr.video.map(([l, u]) => `<a class="btn outline" href="${esc(u)}" target="_blank" rel="noopener">${ICON.play} ${esc(l)}</a>`).join("")}</div></div>`);
+  if (pr.links && pr.links.length) out.push(`<div class="detail"><h3>External profiles</h3><div class="video-links">${
+    pr.links.map(([l, u]) => `<a class="btn outline" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ${ICON.arrow}</a>`).join("")}</div></div>`);
+  if (pr.physical) out.push(physicalBlock(pr.physical));
+  if (pr.skills && pr.skills.length) out.push(`<div class="detail"><h3>Strengths</h3><div class="tags">${
+    pr.skills.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div></div>`);
+  if (pr.achievements && pr.achievements.length) out.push(`<div class="detail"><h3>Honours</h3><ul class="timeline">${
+    pr.achievements.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>`);
+  if (pr.history && pr.history.length) out.push(`<div class="detail"><h3>Career</h3><ul class="timeline">${
+    pr.history.map(h => `<li>${esc(h)}</li>`).join("")}</ul></div>`);
+  return out.join("");
+}
+function viewPlayer(id){
+  const p = PLAYERS.find(x => x.id === id);
+  if (!p) return `<section class="block"><div class="wrap"><div class="empty">Player not found. <a href="#/">Back to the watchlist</a></div></div></section>`;
+  const w = WINDOWS[p.window];
+  const facts = [
+    ["Position", p.position],
+    ["Age", age(p) !== null ? age(p) : null],
+    ["Preferred foot", p.profile.foot],
+    ["Height", p.profile.height ? p.profile.height + " cm" : null],
+    ["Date of birth", p.birthday ? fmtDate(p.birthday) : (p.birthYear ? String(p.birthYear) : null)],
+    ["Nationality", p.nationality],
+    ["Passport", p.profile.passport],
+    ["Region", p.regions.map(r => REGIONS[r]).join(" / ") || null],
+    ["National team", p.nationalTeam],
+    ["Current club", p.club],
+    ["Club country", p.clubCountry],
+    ["Club contract ends", fmtContract(p)],
+    ["Availability", w.label],
+    ["Team", p.gender === "W" ? "Women's football" : "Men's football"],
+  ];
+  const related = PLAYERS.filter(x => x.id !== p.id && x.gender === p.gender && x.group === p.group).slice(0, 3);
+  return `
+  <header class="hero list-hero"><div class="wrap">
+    <a class="crumb" href="#/list?g=${p.gender}&pos=${p.group}">${ICON.back} ${esc(POSITIONS[p.group].label)} · ${p.gender === "W" ? "Women" : "Men"}</a>
+  </div></header>
+  <section class="block"><div class="wrap">
+    <div class="profile">
+      <aside class="side">
+        <div class="avatar" aria-hidden="true">${esc(initials(p.name))}</div>
+        <span class="badge ${w.badge}">${esc(w.label)}</span>
+        <h1>${esc(p.name)}</h1>
+        <p>${esc([p.position, ageText(p)].filter(Boolean).join(" · "))}</p>
+        <div style="margin-top:22px"><a class="btn solid" href="${enquiryLink(p)}">${ICON.mail} Enquire</a></div>
+      </aside>
+      <div>
+        <dl class="facts">
+          ${facts.map(([k, v]) => `<div class="fact"><dt>${k}</dt><dd>${v === null || v === undefined || v === "" ? '<span style="color:var(--muted)">On request</span>' : esc(v)}</dd></div>`).join("")}
+        </dl>
+        ${detailBlocks(p)}
+        <p class="note">${esc(w.blurb)} ${p.profile.video ? "Further video" : "Video"}, physical data and references are available from the Sisu team.</p>
+        <a class="btn dark" href="${enquiryLink(p)}">${ICON.mail} Request player information</a>
+      </div>
+    </div>
+    ${related.length ? `<div style="margin-top:48px">
+      <div class="sec-head"><div class="eyebrow">Similar profiles</div><h2>More ${esc(POSITIONS[p.group].label.toLowerCase())}</h2></div>
+      <div class="cards">${related.map(card).join("")}</div>
+    </div>` : ""}
+  </div></section>
+  ${ctaBlock()}`;
+}
+
+/* ---------- Render ---------- */
+function render(keepScroll){
+  const { parts, q } = parseHash();
+  const app = document.getElementById("app");
+  if (parts[0] === "list") app.innerHTML = viewList(q);
+  else if (parts[0] === "player") app.innerHTML = viewPlayer(parts[1]);
+  else app.innerHTML = viewHub();
+
+  if (parts[0] === "list"){
+    app.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
+      const key = { team:"g", position:"pos", window:"win" }[b.dataset.f];
+      go(["list"], { ...q, [key]: b.dataset.v });
+    }));
+    const setQ = (key, value) => {
+      history.replaceState(null, "", "#/list?" + new URLSearchParams(Object.entries({ ...q, [key]: value }).filter(([,v]) => v && v !== "all")));
+    };
+    app.querySelector(".select").addEventListener("change", e => { setQ("reg", e.target.value); render(true); });
+    let t;
+    app.querySelectorAll("input[data-q]").forEach(input => input.addEventListener("input", () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const key = input.dataset.q;
+        setQ(key, input.value.trim());
+        const caret = input.type === "search" ? input.selectionStart : null;
+        render(true);
+        const ni = document.querySelector(`input[data-q="${key}"]`);
+        ni.focus();
+        if (caret !== null) ni.setSelectionRange(caret, caret);
+      }, 350);
+    }));
+  }
+  if (keepScroll !== true) window.scrollTo(0, 0);
+}
+render();
+</script>
+</body>
+</html>
