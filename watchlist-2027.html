@@ -150,6 +150,10 @@
   @media (max-width:520px){ .phys-tiles{grid-template-columns:1fr} }
   .headline{margin:-4px 0 0;font-size:12.5px;font-weight:600;color:var(--navy-2);text-transform:uppercase;letter-spacing:.04em;line-height:1.35}
   .profile .side .side-headline{margin-top:14px;color:var(--yellow);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;line-height:1.4}
+  .attr-groups{display:grid;gap:10px}
+  .attr-group{display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:start}
+  .attr-label{font-size:12px;font-weight:600;color:var(--muted);padding-top:4px}
+  @media (max-width:520px){ .attr-group{grid-template-columns:1fr;gap:4px} }
   .bio{margin:0;font-size:15px;line-height:1.65;max-width:68ch}
   .detail h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-2);margin:0 0 10px}
   .video-links{display:flex;flex-wrap:wrap;gap:8px}
@@ -287,7 +291,7 @@ const PLAYERS = [
   ["Ibrahim Doumbia Khalil","M","Ivory Coast",null,"CB",2001,"2001-03-22","Medeama SC","Ghana",null],
   ["Jonas Häkkinen","M","Finland / Canada","Finland U21","CB/DM",1999,"1999-03-21","Kerry FC","Ireland","2026-11"],
   ["Jonah Townsend","M","Australia",null,"CB",2005,"2005-12-07","Sunshine Coast Wanderers","Australia","2025-12"],
-  ["Misha Gumede","M","Sweden / South Africa",null,"CB",2006,"2006-08-23","Halmstads BK","Sweden","2025-11"],
+  ["Misha Axel Gumede","M","Sweden / South Africa",null,"CB/CM",2006,"2006-08-23","BK Astrio","Sweden",null],
   ["Kelvin Kalua","M","New Zealand / Malawi","New Zealand","RB/RCB",1999,"1999-07-10","Eastern Suburbs","New Zealand","2026-12"],
   ["Panos Kazelis","M","Greece",null,"DM",2008,"2008-01-10",null,null,null],
   ["Brandt Bronico","M","USA",null,"CM",1995,"1995-06-20","Charlotte FC","USA","2027-12"],
@@ -328,6 +332,12 @@ const PROFILES = {
   "junior-makunike": { history:["Joined Chicken Inn FC · July 2026"] },
   "rijad-husovic": { height:183, history:["Joined FK Polimlje · August 2026"] },
   "chloe-lincoln": { height:178, league:"A-League Women", history:["Brisbane Roar FC · current","Western United","Canberra United"] },
+  "misha-axel-gumede": { foot:"Right", height:186, passport:"Sweden (EU passport) / South Africa", tagPassport:"EU passport",
+    attributes:{ physical:["Acceleration","Balance","Jumping reach","Pace","Physical resilience"],
+                 technical:["Coordination","Heading","Passing","Tackling","Marking"],
+                 mental:["Vision","Work rate","Decision making","Composure","Positioning","Flair"] },
+    video:[["2026 highlights","https://drive.google.com/file/d/1QUOHY4nTyqfNsqq1jn8YDntk-hOj54cK/view?usp=drive_link"]],
+    history:["BK Astrio · current","Halmstads BK"] },
   "abel-walatee": { foot:"Left", height:177, league:"A-League Men", passport:"Australia",
     skills:["Ball control in tight spaces","Dribbling","Distribution"],
     history:["Western United to Sydney FC · 25/26","Western United U21 to Western United · 24/25","Academic BK to Western United U21 · 23/24","Western United U21 to Academic BK · 22/23"],
@@ -619,7 +629,7 @@ const BIOS = {
   "ibrahim-doumbia-khalil": "",
   "jonas-hakkinen": "",
   "jonah-townsend": "",
-  "misha-gumede": "",
+  "misha-axel-gumede": "Right-footed. A ball-playing defender and central midfielder who stays calm under pressure and is strong in the air.",
   "kelvin-kalua": "",
   "panos-kazelis": "",
   "brandt-bronico": "",
@@ -655,7 +665,7 @@ const WINDOWS = {
 /* Players Sisu has confirmed for the January 2027 window. true = still under contract. */
 const JANUARY_2027 = {
   "chloe-lincoln":true, "mikki-easter":false,
-  "julia-olsson":false, "vyan-sampson":false, "gracie-knutzen":false, "olivia-page":false, "grace-pettet":false, "misha-gumede":false,
+  "julia-olsson":false, "vyan-sampson":false, "gracie-knutzen":false, "olivia-page":false, "grace-pettet":false, "misha-axel-gumede":false,
   "chris-ba":true,
   "caragh-hamilton":false, "rebekah-trewhitt":false,
   "malia-steinmetz":false, "amelia-brown":false, "sarah-taylor":false,
@@ -1011,6 +1021,9 @@ function detailBlocks(p){
     pr.links.map(([l, u]) => `<a class="btn outline" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ${ICON.arrow}</a>`).join("")}</div></div>`);
   if (pr.performance) out.push(performanceBlock(pr.performance));
   if (pr.physical) out.push(physicalBlock(pr.physical));
+  if (pr.attributes) out.push(`<div class="detail"><h3>Attributes</h3><div class="attr-groups">${
+    [["physical","Physical"],["technical","Technical"],["mental","Mental"]].filter(([k]) => pr.attributes[k] && pr.attributes[k].length).map(([k, l]) =>
+      `<div class="attr-group"><span class="attr-label">${l}</span><div class="tags">${pr.attributes[k].map(a => `<span class="tag">${esc(a)}</span>`).join("")}</div></div>`).join("")}</div></div>`);
   if (pr.skills && pr.skills.length) out.push(`<div class="detail"><h3>Strengths</h3><div class="tags">${
     pr.skills.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div></div>`);
   if (pr.achievements && pr.achievements.length) out.push(`<div class="detail"><h3>Honours</h3><ul class="timeline">${
