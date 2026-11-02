@@ -150,10 +150,6 @@
   @media (max-width:520px){ .phys-tiles{grid-template-columns:1fr} }
   .headline{margin:-4px 0 0;font-size:12.5px;font-weight:600;color:var(--navy-2);text-transform:uppercase;letter-spacing:.04em;line-height:1.35}
   .profile .side .side-headline{margin-top:14px;color:var(--yellow);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;line-height:1.4}
-  .attr-groups{display:grid;gap:10px}
-  .attr-group{display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:start}
-  .attr-label{font-size:12px;font-weight:600;color:var(--muted);padding-top:4px}
-  @media (max-width:520px){ .attr-group{grid-template-columns:1fr;gap:4px} }
   .bio{margin:0;font-size:15px;line-height:1.65;max-width:68ch}
   .detail h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-2);margin:0 0 10px}
   .video-links{display:flex;flex-wrap:wrap;gap:8px}
@@ -333,9 +329,7 @@ const PROFILES = {
   "rijad-husovic": { height:183, history:["Joined FK Polimlje · August 2026"] },
   "chloe-lincoln": { height:178, league:"A-League Women", history:["Brisbane Roar FC · current","Western United","Canberra United"] },
   "misha-axel-gumede": { foot:"Right", height:186, passport:"Sweden (EU passport) / South Africa", tagPassport:"EU passport",
-    attributes:{ physical:["Acceleration","Balance","Jumping reach","Pace","Physical resilience"],
-                 technical:["Coordination","Heading","Passing","Tackling","Marking"],
-                 mental:["Vision","Work rate","Decision making","Composure","Positioning","Flair"] },
+    skills:["Acceleration","Balance","Jumping reach","Pace","Physical resilience","Coordination","Heading","Passing","Tackling","Marking","Vision","Work rate","Decision making","Composure","Positioning","Flair"],
     video:[["2026 highlights","https://drive.google.com/file/d/1QUOHY4nTyqfNsqq1jn8YDntk-hOj54cK/view?usp=drive_link"]],
     history:["BK Astrio · current","Halmstads BK"] },
   "abel-walatee": { foot:"Left", height:177, league:"A-League Men", passport:"Australia",
@@ -1021,9 +1015,6 @@ function detailBlocks(p){
     pr.links.map(([l, u]) => `<a class="btn outline" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ${ICON.arrow}</a>`).join("")}</div></div>`);
   if (pr.performance) out.push(performanceBlock(pr.performance));
   if (pr.physical) out.push(physicalBlock(pr.physical));
-  if (pr.attributes) out.push(`<div class="detail"><h3>Attributes</h3><div class="attr-groups">${
-    [["physical","Physical"],["technical","Technical"],["mental","Mental"]].filter(([k]) => pr.attributes[k] && pr.attributes[k].length).map(([k, l]) =>
-      `<div class="attr-group"><span class="attr-label">${l}</span><div class="tags">${pr.attributes[k].map(a => `<span class="tag">${esc(a)}</span>`).join("")}</div></div>`).join("")}</div></div>`);
   if (pr.skills && pr.skills.length) out.push(`<div class="detail"><h3>Strengths</h3><div class="tags">${
     pr.skills.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div></div>`);
   if (pr.achievements && pr.achievements.length) out.push(`<div class="detail"><h3>Honours</h3><ul class="timeline">${
