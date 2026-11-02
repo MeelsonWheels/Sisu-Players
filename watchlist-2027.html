@@ -644,8 +644,8 @@ const WINDOWS = {
              blurb:"Free agents and players whose club contracts end by December. Available for the winter window at the beginning of the year." },
   summer:  { key:"summer",  label:"Summer · Mid-year",          short:"Summer window", badge:"summer",
              blurb:"Club contracts end by June. Available for the summer window in the middle of the year." },
-  request: { key:"request", label:"Status on request",          short:"On request",    badge:"",
-             blurb:"Contract status available from the Sisu team on enquiry." },
+  request: { key:"request", label:"",                           short:"",              badge:"",
+             blurb:"" },
 };
 function windowOf(p){
   const c = p.contractEnd;
@@ -818,7 +818,7 @@ function card(p){
     <div class="top">
       <div class="row">
         <div class="avatar" aria-hidden="true">${esc(initials(p.name))}</div>
-        <span class="badge ${w.badge}">${esc(w.label)}</span>
+        ${w.label ? `<span class="badge ${w.badge}">${esc(w.label)}</span>` : ""}
       </div>
     </div>
     <div class="body">
@@ -1035,7 +1035,7 @@ function viewPlayer(id){
     <div class="profile">
       <aside class="side">
         <div class="avatar" aria-hidden="true">${esc(initials(p.name))}</div>
-        <span class="badge ${w.badge}">${esc(w.label)}</span>
+        ${w.label ? `<span class="badge ${w.badge}">${esc(w.label)}</span>` : ""}
         <h1>${esc(p.name)}</h1>
         <p>${esc([p.position, ageText(p)].filter(Boolean).join(" · "))}</p>
         ${p.profile.headline ? `<p class="side-headline">${esc(p.profile.headline)}</p>` : ""}
