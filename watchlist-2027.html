@@ -48,7 +48,7 @@
   .sec-head p{margin:0;color:var(--muted);max-width:640px}
 
   /* Window tiles */
-  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .tile{display:flex;flex-direction:column;justify-content:space-between;min-height:170px;padding:22px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);text-decoration:none;transition:.15s;position:relative}
   .tile:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,36,59,.08)}
   .tile .eyebrow{color:var(--muted);font-size:11px}
@@ -100,8 +100,7 @@
   .card .top{background:var(--navy);color:#fff;padding:18px 18px 16px;position:relative;min-height:118px;display:flex;flex-direction:column;justify-content:space-between}
   .avatar{width:54px;height:54px;border-radius:50%;background:var(--navy-2);border:2px solid var(--yellow);display:grid;place-items:center;font-weight:600;font-size:18px;color:var(--yellow);letter-spacing:.02em}
   .badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.12);color:#fff}
-  .badge.now{background:var(--yellow);color:var(--navy)}
-  .badge.winter{background:#fff;color:var(--navy)}
+  .badge.winter{background:var(--yellow);color:var(--navy)}
   .badge.summer{background:rgba(244,212,80,.22);color:var(--yellow)}
   .card .top .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
   .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
@@ -520,25 +519,22 @@ const CONTACT_EMAIL = "info@sisusportsmanagement.com";
 
 /* ---------- Windows ---------- */
 const WINDOWS = {
-  now:     { key:"now",     label:"Available now",        short:"Available now",   badge:"now",
-             blurb:"Out of contract or without a club. Can sign outside a window where league rules allow." },
-  winter:  { key:"winter",  label:"Free · Winter 2027",    short:"Winter 2027",     badge:"winter",
-             blurb:"Club contracts end December 2026. Free to join for the January 2027 window." },
-  summer:  { key:"summer",  label:"Contract ends · Summer 2027", short:"Summer 2027", badge:"summer",
-             blurb:"Club contracts end by June 2027. Pre-contract talks open now in many leagues." },
-  request: { key:"request", label:"Status on request",     short:"On request",      badge:"",
+  winter:  { key:"winter",  label:"Winter · Beginning of year", short:"Winter window", badge:"winter",
+             blurb:"Free agents and players whose club contracts end by December. Available for the winter window at the beginning of the year." },
+  summer:  { key:"summer",  label:"Summer · Mid-year",          short:"Summer window", badge:"summer",
+             blurb:"Club contracts end by June. Available for the summer window in the middle of the year." },
+  request: { key:"request", label:"Status on request",          short:"On request",    badge:"",
              blurb:"Contract status available from the Sisu team on enquiry." },
 };
 function windowOf(p){
   const c = p.contractEnd;
   if (!c) return "request";
-  if (c === "free") return "now";
+  if (c === "free") return "winter";
   const [y,m] = c.split("-").map(Number);
   const today = new Date(), ym = y*12 + (m-1), nowYm = today.getFullYear()*12 + today.getMonth();
-  if (ym < nowYm) return "now";
+  if (ym <= nowYm) return "winter";
   if (y === 2026 && m === 12) return "winter";
   if (y === 2027 && m <= 6) return "summer";
-  if (ym === nowYm) return "now";
   return "request";
 }
 
@@ -743,19 +739,17 @@ function viewHub(){
     <p class="lead">Selected Sisu-represented players for clubs recruiting in the Winter and Summer 2027 windows. Men's and women's football.</p>
     ${trustLine()}
     <div class="hero-actions">
-      <a class="btn solid" href="#/list?win=winter">Free · Winter 2027 ${ICON.arrow}</a>
-      <a class="btn ghost" href="#/list?win=summer">Contract ends · Summer 2027</a>
-      <a class="btn ghost" href="#/list?win=now">Available now</a>
+      <a class="btn solid" href="#/list?win=winter">Winter · Beginning of year ${ICON.arrow}</a>
+      <a class="btn ghost" href="#/list?win=summer">Summer · Mid-year</a>
     </div>
   </div></header>
 
   <section class="block alt"><div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">By window</div>
-      <h2>When can they join?</h2>
-      <p>Players grouped by when their current club contract ends.</p>
+      <h2>Transfer windows</h2>
     </div>
-    <div class="tiles">${tile("winter", true)}${tile("summer")}${tile("now")}</div>
+    <div class="tiles">${tile("winter", true)}${tile("summer")}</div>
   </div></section>
 
   <section class="block"><div class="wrap">
@@ -788,7 +782,7 @@ function viewList(q){
     (reg === "all" || p.regions.includes(reg)) &&
     ageOk(p) &&
     (!s || [p.name, p.club, p.nationality, p.position, p.clubCountry].join(" ").toLowerCase().includes(s)));
-  const order = { winter:0, summer:1, now:2, request:3 };
+  const order = { winter:0, summer:1, request:2 };
   list.sort((a,b) => order[a.window] - order[b.window] || a.group.localeCompare(b.group) || a.name.localeCompare(b.name));
 
   const titleParts = [];
@@ -810,7 +804,7 @@ function viewList(q){
   <div class="filters"><div class="wrap">
     ${chips("Team", g, [["all","All"],["W","Women"],["M","Men"]])}
     ${chips("Position", pos, [["all","All"],["gk","GK"],["def","DEF"],["mid","MID"],["fwd","FWD"]])}
-    ${chips("Window", win, [["all","All"],["winter","Winter 27"],["summer","Summer 27"],["now","Now"]])}
+    ${chips("Window", win, [["all","All"],["winter","Winter"],["summer","Summer"]])}
     <div class="fgroup"><label for="region">Region</label>
       <select id="region" class="select" data-q="reg" aria-label="Nationality region">
         <option value="all">All regions</option>
