@@ -204,6 +204,7 @@
    ============================================================ */
 const PLAYERS = [
   // ---------- WOMEN ----------
+  ["Chloe Lincoln","W","Australia","Australia","GK",2005,"2005-01-04","Brisbane Roar FC","Australia",null],
   ["Sophie Whitehouse","W","Ireland / England","Ireland","GK",1996,"1996-10-10","Charlton Athletic","England","2026-06"],
   ["Anna Pedersen","W","England","England U19","GK",2002,"2002-03-19","Charlton Athletic","England","2026-06"],
   ["Amanda Brunholt","W","Denmark","Denmark","GK",1995,"1995-03-30","Young Boys","Switzerland","2027-06"],
@@ -214,13 +215,15 @@ const PLAYERS = [
   ["Chloe Mustaki","W","Ireland","Ireland","LB/LM",1995,"1995-07-29","Nottingham Forest","England","2026-06"],
   ["Anna Heilferty","W","USA",null,"LWB",1999,"1999-04-17","Houston Dash","USA","2025-12"],
   ["Sophie O'Rourke","W","England",null,"LB/RB",1999,"1999-06-03","Sheffield United","England","2026-06"],
-  ["Olivia Page","W","British / New Zealand","New Zealand U20","RB",2005,"2005-02-02","Newcastle Jets","Australia","2026-06"],
+  ["Olivia Page","W","British / New Zealand","New Zealand U20","CB/RB",2005,"2005-02-02","Newcastle Jets","Australia","2026-06"],
   ["Isabel Hodgson","W","Australia",null,"RB/RWB",1996,"1996-05-12","Adelaide United","Australia","2026-06"],
   ["Zoe McMeeken","W","New Zealand","New Zealand U20","RB",2004,"2004-03-11","Melbourne Victory","Australia","2026-06"],
   ["Caragh Hamilton","W","Northern Ireland","Northern Ireland","RB",1996,"1996-10-18","Nottingham Forest","England","2026-06"],
+  ["Chris Ba","W",null,null,"LB/LWB",null,null,null,null,null],
   ["Mia Golding","W","Australia",null,"RW/RWB",2007,"2007-01-14","APIA Leichhardt FC","Australia","2024-12"],
   ["Rebekah Trewhitt","W","New Zealand","New Zealand U20","RB/RWB",2005,"2005-12-13","Lewes FC","England","2026-06"],
-  ["Wakana Mitani","W","Japan","Japan","RB",2001,"2001-10-02","SFK Riga","Latvia",null],
+  ["Wakana Mitani","W","Japan","Japan","RW/RB",2001,"2001-10-02","SFK Riga","Latvia",null],
+  ["Michelle Colson","W",null,null,"CB",null,null,null,null,null],
   ["Lizzie Anton","W","New Zealand","New Zealand","CB",1998,"1998-12-12","Canberra United","Australia","free"],
   ["Kate Taylor","W","New Zealand","New Zealand","CB",2003,"2003-10-21","Dijon","France","2026-06"],
   ["Vyan Sampson","W","England / Jamaica","Jamaica","CB/DM",1996,"1996-07-02","INAC Kobe Leonessa","Japan","2026-06"],
@@ -235,11 +238,11 @@ const PLAYERS = [
   ["Malia Steinmetz","W","New Zealand","New Zealand","DM",1999,"1999-01-18","FC Nordsjaelland","Denmark","2024-06"],
   ["Lily Farkas","W","Hungary / USA","Hungary U19","CAM/CM",2001,null,"Fram Reykjavík","Iceland","2025-12"],
   ["Moa Liwendahl","W","Sweden",null,"CM",1999,"1999-05-19","Bollstanäs SK","Sweden","2025-12"],
-  ["Sarah Taylor","W","Canada","Canada U20","CM",1996,"1996-06-12","Halifax Tides",null,null],
+  ["Sarah Taylor","W","Canada","Canada U20","DM/CM",1996,"1996-06-12","Halifax Tides",null,null],
   ["Frankie Finlayson","W","Canada","Canada U20 wider squad","CM",2006,"2006-11-09","Charlton Athletic","England","2026-06"],
   ["Monique Robinson","W","England",null,"CM",2004,"2004-10-13","West Bromwich Albion","England","2025-06"],
   ["Marissa Sheva","W","Ireland / USA",null,"CM",1997,"1997-04-22","Sunderland","England","2026-06"],
-  ["Amelia Brown","W","USA",null,"CM",2004,"2004-02-20","UNC Charlotte","USA","2025-12"],
+  ["Amelia Brown","W","USA",null,"DM/CM",2004,"2004-02-20","UNC Charlotte","USA","2025-12"],
   ["Evelyn Badu","W","Ghana","Ghana","ST/AM",2002,"2002-09-11","Molde FK","Norway","2025-07"],
   ["Ischia Brooking","W","Australia / England","Australia U17","AM",2008,"2008-11-23","Perth Glory","Australia","2025-06"],
   ["Victoria Kalaberova","W","Slovakia","Slovakia","AM",2001,"2001-07-07","GKS Katowice","Poland","2027-06"],
@@ -256,15 +259,15 @@ const PLAYERS = [
   ["Laila El Behery","W","Egypt","Egypt","RW/LW",2003,"2003-09-14","FC Nordsjaelland","Denmark",null],
   ["Sakura Leong","W","Australia","Australia U17","RW/LW",2009,"2009-05-25",null,null,null],
   ["Natalie Beckman","W","USA",null,"Wing Forward",2000,"2000-03-25","Free agent (last club: Sparta Prague)","Czechia","free"],
-  ["Fiona Worts","W","England",null,"Centre Forward",1996,"1996-01-30","Adelaide United","Australia","2026-06"],
+  ["Fiona Worts","W","England",null,"Centre Forward",1996,"1996-01-30",null,"Canada",null],
   ["Jacqui Hand","W","England / New Zealand","New Zealand","Winger / Second Striker",1999,"1999-02-19","Kolbotn IL","Norway","2025-12"],
   ["Sabitra Bhandari","W","Nepal","Nepal","Centre Forward",1996,"1996-05-23","Wellington Phoenix","New Zealand","2027-06"],
   ["Brooke Nunn","W","England / Nigeria",null,"Striker",1993,"1993-02-04","Central Coast Mariners","Australia","2025-05"],
-  ["Makala Woods","W","USA",null,"ST",2002,"2002-09-04","Wellington Phoenix","New Zealand","2025-12"],
+  ["Makala Woods","W","USA",null,"ST",2002,"2002-09-04","Wellington Phoenix","New Zealand",null],
   ["Tiana Fuller","W","Australia",null,"Centre Forward",2008,"2008-07-28","Central Coast Mariners","Australia","2025-06"],
   ["Emma Main","W","New Zealand",null,"Centre Forward / Winger",1999,"1999-10-19","Wellington Phoenix","New Zealand","2025-06"],
   ["Nicole Douglas","W","England",null,"Centre Forward",2000,"2000-07-31","Free agent (last club: DC Power FC)","USA","free"],
-  ["Megan Bradley","W","England",null,"CF",2004,"2004-04-27","UNC Charlotte","USA","free"],
+  ["Megan Bradley","W","England",null,"CF",2004,"2004-04-27","UNC Charlotte","USA",null],
   ["Kyra Carusa","W","USA / Ireland",null,"Centre Forward",1995,"1995-11-14","HB Køge","Denmark",null],
   ["Elliana Martin","W","England",null,"WF/AM",2006,"2006-12-08","Brighton & Hove Albion","England",null],
   ["Victoria Mbali","W","Zambia","Zambia U17","Centre Forward",2008,"2008-02-21",null,null,null],
@@ -293,7 +296,7 @@ const PLAYERS = [
   ["Fredrick Bono","M","Liberia",null,"CM",2008,"2008-01-03","LPRC Oilers","Liberia","2026-06"],
   ["Lamine Debosan Niang","M","Ivory Coast",null,"AM",2006,"2006-12-15","San Pedro FC","Ivory Coast","2025-06"],
   ["Yosuke Hanya","M","Japan","Japan U19","RW",1999,"1999-01-30","Colorado Springs Switchbacks FC","USA","2027-11"],
-  ["Stavros Zarokostas","M","USA / Greece",null,"CF/RW/LW",1997,"1997-11-05","One Knoxville SC","USA","2026-11"],
+  ["Stavros Zarokostas","M","USA / Greece",null,"RW/CF",1997,"1997-11-05","One Knoxville SC","USA","2026-11"],
   ["Abel Walatee","M","Australia / Ghana","Australia U23","LW/RW",2004,"2004-02-22","Sydney FC","Australia","2029-06"],
   ["Cian Bargary","M","Ireland",null,"RW",2000,"2000-11-22","Kerry FC","Ireland","2026-11"],
   ["Miles De Luca","M","Australia",null,"RW/LW",2008,"2008-02-12","SC Wanderers","Australia","2025-12"],
@@ -325,6 +328,7 @@ const PROFILES = {
   "prosper-chiluya": { foot:"Left", height:178, history:["Zanaco FC · until July 2026"] },
   "junior-makunike": { history:["Joined Chicken Inn FC · July 2026"] },
   "rijad-husovic": { height:183, history:["Joined FK Polimlje · August 2026"] },
+  "chloe-lincoln": { height:178, league:"A-League Women", history:["Brisbane Roar FC · current","Western United","Canberra United"] },
   "abel-walatee": { foot:"Left", height:177, league:"A-League Men", passport:"Australia",
     skills:["Ball control in tight spaces","Dribbling","Distribution"],
     history:["Western United to Sydney FC · 25/26","Western United U21 to Western United · 24/25","Academic BK to Western United U21 · 23/24","Western United U21 to Academic BK · 22/23"],
@@ -535,6 +539,7 @@ const PROFILES = {
    an empty bio is simply not shown.
    ============================================================ */
 const BIOS = {
+  "chloe-lincoln": "",
   "sophie-whitehouse": "",
   "anna-pedersen": "",
   "amanda-brunholt": "",
@@ -549,9 +554,11 @@ const BIOS = {
   "isabel-hodgson": "",
   "zoe-mcmeeken": "",
   "caragh-hamilton": "",
+  "chris-ba": "",
   "mia-golding": "",
   "rebekah-trewhitt": "",
   "wakana-mitani": "",
+  "michelle-colson": "",
   "lizzie-anton": "",
   "kate-taylor": "",
   "vyan-sampson": "Vyan is English by birth and upbringing but has World Cup tournament experience with Jamaica. Developed at Arsenal Academy, Vyan played in the WSL and the Scottish Premier League, and has just won the Japanese league in her third and final season there. A composed and experienced centre back with an exceptional club pedigree and broad international exposure. A commanding presence in the air, disciplined in her positioning and calm under pressure, with good distribution.",
@@ -641,21 +648,30 @@ const CONTACT_EMAIL = "info@sisusportsmanagement.com";
 /* ---------- Windows ---------- */
 const WINDOWS = {
   winter:  { key:"winter",  label:"Winter · Beginning of year", short:"Winter window", badge:"winter",
-             blurb:"Free agents and players whose club contracts end by December. Available for the winter window at the beginning of the year." },
+             blurb:"Confirmed by Sisu as available for the January 2027 window. Some are still under contract with their club." },
   summer:  { key:"summer",  label:"Summer · Mid-year",          short:"Summer window", badge:"summer",
              blurb:"Club contracts end by June. Available for the summer window in the middle of the year." },
   request: { key:"request", label:"",                           short:"",              badge:"",
              blurb:"" },
 };
+/* Players Sisu has confirmed for the January 2027 window. true = still under contract. */
+const JANUARY_2027 = {
+  "chloe-lincoln":true, "mikki-easter":false,
+  "julia-olsson":false, "vyan-sampson":false, "gracie-knutzen":false, "olivia-page":false, "michelle-colson":false, "grace-pettet":false, "misha-gumede":false,
+  "chris-ba":true,
+  "caragh-hamilton":false, "rebekah-trewhitt":false,
+  "malia-steinmetz":false, "amelia-brown":false, "sarah-taylor":false,
+  "lily-farkas":false,
+  "wakana-mitani":false, "stavros-zarokostas":false, "cian-bargary":false,
+  "nicole-douglas":false, "megan-bradley":true, "makala-woods":true, "fiona-worts":true, "victoria-mbali":true,
+};
 function windowOf(p){
+  if (p.id in JANUARY_2027) return "winter";
   const c = p.contractEnd;
-  if (!c) return "request";
-  if (c === "free") return "winter";
+  if (!c || c === "free") return "request";
   const [y,m] = c.split("-").map(Number);
   const today = new Date(), ym = y*12 + (m-1), nowYm = today.getFullYear()*12 + today.getMonth();
-  if (ym <= nowYm) return "winter";
-  if (y === 2026 && m === 12) return "winter";
-  if (y === 2027 && m <= 6) return "summer";
+  if (ym > nowYm && y === 2027 && m <= 6) return "summer";
   return "request";
 }
 
@@ -710,7 +726,7 @@ function ageBounds(p){
 
 /* ---------- Helpers ---------- */
 const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
-PLAYERS.forEach(p => { p.id = slug(p.name); p.window = windowOf(p); p.group = groupOf(p.position); p.profile = PROFILES[p.id] || {}; p.bio = BIOS[p.id] || ""; p.regions = regionsOf(p); });
+PLAYERS.forEach(p => { p.id = slug(p.name); p.underContract = JANUARY_2027[p.id] === true; p.window = windowOf(p); p.group = groupOf(p.position); p.profile = PROFILES[p.id] || {}; p.bio = BIOS[p.id] || ""; p.regions = regionsOf(p); });
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initials = n => n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0,2).join("").toUpperCase();
 function age(p){
@@ -811,6 +827,7 @@ function card(p){
   const line1 = [p.position, ageText(p), p.profile.height ? p.profile.height + " cm" : null].filter(Boolean).join(" · ");
   const tags = [];
   if (p.nationalTeam) tags.push(/squad/i.test(p.nationalTeam) ? p.nationalTeam : p.nationalTeam + " international");
+  if (p.underContract) tags.push("Under contract");
   if (p.profile.tagPassport) tags.push(p.profile.tagPassport);
   if (p.profile.video) tags.push("Video available");
   tags.push(p.gender === "W" ? "Women" : "Men");
@@ -1023,7 +1040,7 @@ function viewPlayer(id){
     ["League", p.profile.league],
     ["Club country", p.clubCountry],
     ["Club contract ends", fmtContract(p)],
-    ["Availability", w.label],
+    ["Availability", w.label + (p.underContract ? " · under contract" : "")],
     ["Top speed", p.profile.topSpeed],
   ];
   const related = PLAYERS.filter(x => x.id !== p.id && x.gender === p.gender && x.group === p.group).slice(0, 3);
