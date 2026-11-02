@@ -118,7 +118,8 @@
   .empty{padding:48px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
 
   /* Profile */
-  .profile{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+  .profile{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+  .profile > *{min-width:0}
   .profile .side{background:var(--navy);color:#fff;border-radius:var(--radius);padding:26px}
   .profile .side .avatar{width:96px;height:96px;font-size:32px;margin-bottom:18px}
   .profile .side h1{font-size:28px;line-height:1.1;margin:10px 0 6px;text-transform:uppercase}
