@@ -1043,7 +1043,7 @@ function viewPlayer(id){
       </aside>
       <div>
         <dl class="facts">
-          ${facts.map(([k, v]) => `<div class="fact"><dt>${k}</dt><dd>${v === null || v === undefined || v === "" ? '<span style="color:var(--muted)">On request</span>' : esc(v)}</dd></div>`).join("")}
+          ${facts.map(([k, v]) => `<div class="fact"><dt>${k}</dt><dd>${v === null || v === undefined || v === "" ? '&nbsp;' : esc(v)}</dd></div>`).join("")}
         </dl>
         ${detailBlocks(p)}
         <p class="note">${esc(w.blurb)} ${p.profile.video ? "Further video" : "Video"}, physical data and references are available from the Sisu team.</p>
