@@ -838,7 +838,6 @@ function card(p){
     </div>
     <div class="body">
       <h3><a href="#/player/${p.id}">${esc(p.name)}</a></h3>
-      ${p.profile.headline ? `<p class="headline">${esc(p.profile.headline)}</p>` : ""}
       <div class="meta">
         <strong>${esc(line1)}</strong>
         ${club ? `<span>${esc(club)}</span>` : ""}
