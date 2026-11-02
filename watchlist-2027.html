@@ -829,9 +829,6 @@ function card(p){
   const line1 = [p.position, ageText(p), p.profile.height ? p.profile.height + " cm" : null].filter(Boolean).join(" · ");
   const tags = [];
   if (p.nationalTeam) tags.push(/squad/i.test(p.nationalTeam) ? p.nationalTeam : p.nationalTeam + " international");
-  if (p.underContract) tags.push("Under contract");
-  if (p.profile.tagPassport) tags.push(p.profile.tagPassport);
-  if (p.profile.video) tags.push("Video available");
   tags.push(p.gender === "W" ? "Women" : "Men");
   return `<article class="card">
     <div class="top">
