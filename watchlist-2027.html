@@ -143,6 +143,8 @@
   .phys-stat{padding:12px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
   .phys-stat span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
   .phys-stat b{font-size:18px;color:var(--navy)}
+  .perf-season + .perf-season{margin-top:20px}
+  .perf-season h4{margin:0 0 8px;font-size:14px;font-weight:600}
   .phys-src{font-size:12px;color:var(--muted);margin:8px 0 0}
   @media (max-width:520px){ .phys-tiles{grid-template-columns:1fr} }
   .headline{margin:-4px 0 0;font-size:12.5px;font-weight:600;color:var(--navy-2);text-transform:uppercase;letter-spacing:.04em;line-height:1.35}
@@ -218,7 +220,7 @@ const PLAYERS = [
   ["Mia Golding","W","Australia",null,"RW/RWB",2007,"2007-01-14","APIA Leichhardt FC","Australia","2024-12"],
   ["Rebekah Trewhitt","W","New Zealand","New Zealand U20","RB/RWB",2005,"2005-12-13","Lewes FC","England","2026-06"],
   ["Wakana Mitani","W","Japan","Japan","RB",2001,"2001-10-02","SFK Riga","Latvia",null],
-  ["Lizzie Anton","W","New Zealand","New Zealand","CB",1998,"1998-12-12","Kolbotn IL","Norway","2025-11"],
+  ["Lizzie Anton","W","New Zealand","New Zealand","CB",1998,"1998-12-12","Canberra United","Australia","free"],
   ["Kate Taylor","W","New Zealand","New Zealand","CB",2003,"2003-10-21","Dijon","France","2026-06"],
   ["Vyan Sampson","W","England / Jamaica","Jamaica","CB/DM",1996,"1996-07-02","INAC Kobe Leonessa","Japan","2026-06"],
   ["Rafanny Mendoza","W","Venezuela","Venezuela","CB",1996,"1996-11-05","Swieqi United","Malta","2025-06"],
@@ -227,7 +229,7 @@ const PLAYERS = [
   ["Elisha N'Dow","W","England",null,"CB",1996,"1996-10-13","Charlton Athletic","England","2025-06"],
   ["Julia Olsson","W","Sweden",null,"CB/RB",1997,"1997-01-31","IF Brommapojkarna","Sweden","2025-12"],
   ["Gracie Knutzen","W","USA",null,"LCB",2002,"2002-03-11","BGC CAS","Thailand","2025-08"],
-  ["Grace Pettet","W","USA",null,"LCB",null,null,"Racing Power","Portugal","2026-06"],
+  ["Grace Pettet","W","USA",null,"LCB",2002,"2002-08-02","Racing Power FC","Portugal","free"],
   ["Madison Ayson","W","USA","USA","CB",2001,null,"Sydney FC","Australia",null],
   ["Malia Steinmetz","W","New Zealand","New Zealand","DM",1999,"1999-01-18","FC Nordsjaelland","Denmark","2024-06"],
   ["Lily Farkas","W","Hungary / USA","Hungary U19","CAM/CM",2001,null,"Fram Reykjavík","Iceland","2025-12"],
@@ -241,7 +243,7 @@ const PLAYERS = [
   ["Ischia Brooking","W","Australia / England","Australia U17","AM",2008,"2008-11-23","Perth Glory","Australia","2025-06"],
   ["Victoria Kalaberova","W","Slovakia","Slovakia","AM",2001,"2001-07-07","GKS Katowice","Poland","2027-06"],
   ["Zahmena Malik","W","England / Pakistan","Pakistan","AM",2001,"2001-12-21","Lakatamia FC","Cyprus","2026-06"],
-  ["Giulianna Gianini","W","USA",null,"AM",null,null,null,null,null],
+  ["Giulianna Gianino","W","USA",null,"AM",null,null,"Free agent (last club: Boston University)","USA","free"],
   ["Karin Muya","W","England",null,"LW/RW",1995,"1995-03-26","Watford","England","2025-06"],
   ["Alicia Terhart","W","South Africa",null,"RW/LW",2004,"2004-10-16","TS Galaxy","South Africa","2024-12"],
   ["Alana Cortellino","W","Australia",null,"RW/LW",2006,"2006-12-10","Western United","Australia","2025-05"],
@@ -257,20 +259,21 @@ const PLAYERS = [
   ["Jacqui Hand","W","England / New Zealand","New Zealand","Winger / Second Striker",1999,"1999-02-19","Kolbotn IL","Norway","2025-12"],
   ["Sabitra Bhandari","W","Nepal","Nepal","Centre Forward",1996,"1996-05-23","Wellington Phoenix","New Zealand","2027-06"],
   ["Brooke Nunn","W","England / Nigeria",null,"Striker",1993,"1993-02-04","Central Coast Mariners","Australia","2025-05"],
-  ["Makala Woods","W","USA",null,"Centre Forward",2002,"2002-09-04","Wellington Phoenix","New Zealand","2025-12"],
+  ["Makala Woods","W","USA",null,"ST",2002,"2002-09-04","Wellington Phoenix","New Zealand","2025-12"],
   ["Tiana Fuller","W","Australia",null,"Centre Forward",2008,"2008-07-28","Central Coast Mariners","Australia","2025-06"],
   ["Emma Main","W","New Zealand",null,"Centre Forward / Winger",1999,"1999-10-19","Wellington Phoenix","New Zealand","2025-06"],
   ["Nicole Douglas","W","England",null,"Centre Forward",2000,"2000-07-31","Free agent (last club: DC Power FC)","USA","free"],
-  ["Megan Bradley","W","England",null,"Striker",2004,"2004-04-27","UNC Charlotte","USA","2026-05"],
+  ["Megan Bradley","W","England",null,"CF",2004,"2004-04-27","UNC Charlotte","USA","free"],
   ["Kyra Carusa","W","USA / Ireland",null,"Centre Forward",1995,"1995-11-14","HB Køge","Denmark",null],
   ["Elliana Martin","W","England",null,"WF/AM",2006,"2006-12-08","Brighton & Hove Albion","England",null],
   ["Victoria Mbali","W","Zambia","Zambia U17","Centre Forward",2008,"2008-02-21",null,null,null],
-  ["Aoibheann Clancy","W","Ireland",null,"CM",2003,"2003-10-31","Shelbourne","Ireland",null],
+  ["Aoibheann Clancy","W","Ireland","Ireland","DM/CM",2003,"2003-10-31","Shelbourne","Ireland",null],
   ["Cynthia Salha","W","Lebanon","Lebanon","ST/LW",2003,"2003-01-12","Lakatamia FC","Cyprus",null],
   ["Ella Tonkin","W","Australia",null,"CB",2002,"2002-12-14","Adelaide United","Australia",null],
   ["Grace Gordon","W","USA",null,"GK",2000,"2000-10-10","Free agent",null,"free"],
   ["Maggie Jenkins","W","New Zealand","New Zealand","ST",2001,"2001-06-14","Wellington United","New Zealand",null],
   ["Suha Hirani","W","Pakistan","Pakistan","AM/DM",1997,"1997-07-21","Karachi City FC","Pakistan",null],
+  ["Charlotte Flemming","W","England","England U17","DM",2002,"2002-01-09","Ipswich Town","England","free"],
   ["Melina Ayres","W","Australia",null,"ST",1999,"1999-04-13","Melbourne City","Australia","2028-06"],
   ["Theo Mouithys","W","Australia","Australia U17","Centre Forward",2009,"2009-02-05",null,null,null],
 
@@ -316,22 +319,24 @@ const PROFILES = {
     skills:["Defensive awareness","Stamina","Crossing","Passing","Composure"],
     history:["Washington Spirit to Houston Dash · 25/26","Boston University Terriers to Washington Spirit · 20/21"],
     video:[["Highlight reel","https://youtu.be/50jULWbDh0Y"]] },
-  "aoibheann-clancy": { foot:"Right", height:169,
+  "aoibheann-clancy": { foot:"Right", height:169, league:"Women's Premier Division", topSpeed:"8.88 m/s (32.0 km/h)",
+    performance:[{ season:"2025/26", source:"Sisu player profile, 2026",
+      competitions:[{ comp:"Women's Premier Division", apps:3, goals:1, mins:270 },{ comp:"President's Cup", apps:1, goals:0, mins:90 }] }],
     skills:["Playmaker","High work ethic","Positional awareness","Defensive awareness"],
     history:["Wexford FC to Shelbourne · 24/25","Wexford Youths to Wexford FC · 23/24","Limerick FC Academy to Wexford Youths · 19/20","Tipperary Town to Limerick FC Academy · 17/18"] },
-  "aqsa-mushtaq": { foot:"Left", height:167,
+  "aqsa-mushtaq": { foot:"Left", height:167, league:"2. Bundesliga",
     headline:"Cunning winger with extensive international club and country experience",
     skills:["Technically gifted","Excellent crossing","Finds pockets in the inside channels","Chance creation","Goals and assists","Creativity","Vision","Decision-making"],
     history:["VfR Warbeyen (2. Bundesliga, Germany) · current","Ünye Gücü FK","OFI · 2025","Lewes · 2023–2025","Ergotelis · 2023","Avantes Chalkidas · 2022–2023","Roma (loan) · 2021–2022","Napoli · 2020–2021","Bradford City academy"],
     video:[["25/26 highlights","https://youtu.be/LflkjK-DnJM"],["Earlier highlights","https://www.youtube.com/watch?v=U2I1czVXeN8"]],
     links:[["Soccerdonna profile","https://www.soccerdonna.de/en/aqsa-mushtaq/profil/spieler_49387.html"],["Wikipedia","https://en.wikipedia.org/wiki/Aqsa_Mushtaq"]] },
-  "vyan-sampson": { height:175,
+  "vyan-sampson": { height:175, league:"WE League",
     skills:["Composed and experienced","Commanding in the air","Disciplined positioning","Calm under pressure","Good distribution"],
     achievements:["Jamaica international · 2023 FIFA Women's World Cup","Japanese league champion with INAC Kobe Leonessa","Former England U17 and U19 international"],
     history:["INAC Kobe Leonessa (WE League, Japan) · current","JEF United Chiba (Japan)","Heart of Midlothian (Scotland)","San Marino Academy (Italy)","West Ham United (WSL)","Arsenal (WSL)","Arsenal academy"],
     video:[["2025/26 highlights","https://youtu.be/kT7nHmau_KE"]],
     links:[["Soccerdonna profile","https://www.soccerdonna.de/en/vyan-sampson/profil/spieler_14127.html"]] },
-  "frankie-finlayson": { foot:"Both", height:170, passport:"UK Ancestry visa",
+  "frankie-finlayson": { foot:"Both", height:170, league:"Women's Super League 2", passport:"Canada · holds a UK Ancestry visa",
     headline:"Two-footed young midfielder with an eye for goal and intelligent movement",
     skills:["Two-footed","Box-to-box","Operates across all midfield areas","Combative","Technically assured","Powerful and athletic","Running power"],
     achievements:["Promoted to WSL1 with Charlton Athletic · May 2026","17 appearances and 3 goals for Hashtag United, including two direct from corners","Regularly top of the Charlton squad in fitness tests"],
@@ -344,19 +349,44 @@ const PROFILES = {
     history:["Brighton & Hove Albion academy · 4 seasons, U19"],
     physical:{ source:"Brighton & Hove Albion academy player CV · match maximums",
       stats:[["Total Distance","9,440"],["HSR Distance","455"],["Sprint Distance","276"],["Accel Distance","353"],["Decel Distance","134"],["Max V","8.1"],["%Max V","95.3"],["M/Min","96"],["Max Velocity","8.43 m/s"],["CMJ Jump Height","40.8 cm"],["CMJ Peak Power/kg","59 W/kg"]] } },
-  "melina-ayres": { foot:"Right", height:173, topSpeed:"28.13 km/h",
+  "giulianna-gianino": { foot:"Both", height:160,
+    headline:"Technical and mobile midfielder whose national team performances against top teams illustrate her true quality",
+    performance:[{ season:"NCAA D1 career · Boston University", source:"Sisu player profile, 2026",
+      competitions:[{ comp:"NCAA Division 1", apps:80, goals:25, assists:25 }] }],
+    achievements:["Patriot League Midfielder of the Year · 2025","Patriot League Scholar-Athlete of the Year · 2025","NCAA statistical champion, 0.79 assists per game · 2025","All-ECAC First Team · 2025","All-Patriot League First Team · 2023, 2024, 2025","Patriot League All-Tournament Team · 2023, 2025"],
+    history:["Boston University (NCAA D1)"] },
+  "charlotte-flemming": { foot:"Right", height:168, league:"Women's Super League 2", topSpeed:"30 km/h",
+    headline:"An out-and-out number 6 with a Chelsea academy education and England U17 experience",
+    performance:[{ season:"2025/26", source:"Sisu player profile, 2026",
+      competitions:[{ comp:"Women's Super League 2", apps:6, mins:248 },{ comp:"Women's FA Cup", apps:1, mins:45 },{ comp:"FA Women's League Cup", apps:3, mins:150 }] }],
+    history:["Watford to Ipswich Town · 24/25","London City Lionesses to Watford · 23/24","Leicester City to London City Lionesses · 21/22","Chelsea FC to Leicester City · 20/21","Chelsea FC U21 to Chelsea FC · 20/21"] },
+  "megan-bradley": { foot:"Right", height:168, league:"NCAA Division 1", topSpeed:"8.87 m/s (32.8 km/h)",
+    performance:[{ season:"2025 NCAA season", source:"Sisu player profile, 2026",
+      competitions:[{ comp:"NCAA Division 1", apps:6, starts:6, goals:2, assists:2, mins:517 }] }],
+    history:["UNC Charlotte (NCAA D1) · current","Manchester United academy"] },
+  "lizzie-anton": { height:173, league:"A-League Women",
+    performance:[{ season:"2025/26", source:"Sisu player profile, 2026",
+      competitions:[{ comp:"A-League Women", apps:17, goals:1, assists:1, mins:1519 },{ comp:"Friendlies", apps:1, mins:90 }] }],
+    history:["Kolbotn IL to Canberra United · 25/26","Canberra United to Kolbotn IL · 24/25","Perth Glory to Canberra United · 24/25","Auckland Football to Perth Glory · 20/21","Western Springs Auckland to Auckland Football · 19/20","Lynn-Avon United to Western Springs Auckland · 17/18"] },
+  "grace-pettet": { foot:"Left", height:173, league:"Liga BPI", topSpeed:"27.42 km/h",
+    skills:["Left-footed centre back","Composed","Ball-playing","Comfortable on the left of a back four","Adaptable"],
+    achievements:["21 appearances in the Icelandic Besta deild with Tindastóll · 2025"],
+    history:["UMF Tindastóll to Racing Power FC · March 2026","Pittsburgh Panthers to UMF Tindastóll · 24/25","Missouri Tigers to Pittsburgh Panthers · 24/25"] },
+  "melina-ayres": { foot:"Right", height:173, topSpeed:"27.42 km/h", league:"A-League Women",
     headline:"Classic centre forward · number 9",
     skills:["Traditional all-round number 9","Strong","Good with back to goal","Work rate: channels, drops in, central","Very good finishing"],
     video:[["Centre forward highlights","https://vimeo.com/thepfa/ayres2026"]],
     links:[["Soccerdonna profile","https://www.soccerdonna.de/en/melina-ayres/leistungsdaten/spieler_29995.html"]],
-    history:["Melbourne City (A-League Women) · 26/27 to present","Newcastle Jets (A-League Women)"],
-    performance:{ season:"2026/27", source:"Soccerdonna",
+    history:["Melbourne City (A-League Women) · 26/27 to present","Newcastle Jets (A-League Women) · 25/26"],
+    performance:[{ season:"2026/27", source:"Soccerdonna",
       competitions:[{ comp:"A-League Women", apps:2, starts:2, goals:2, mins:180 }],
       matches:[
         { date:"2026-10-18", home:"Wellington", away:"Melbourne City", result:"1:2", goals:1, mins:90 },
         { date:"2026-10-25", home:"Sydney FC",  away:"Melbourne City", result:"0:5", goals:1, mins:90 },
       ] },
-    physical:{ source:"Match GPS data, rounds 1–21 and friendly",
+      { season:"2025/26 · Newcastle Jets", source:"Sisu player profile, 2026",
+        competitions:[{ comp:"A-League Women", apps:20, goals:8, assists:1, mins:1584 }] }],
+    physical:{ source:"Newcastle Jets match GPS data, A-League Women 2025/26, rounds 1–21 and friendly",
       tiles:[["Top Speed (km/h)","top"],["Highest Total Distance (m)","td"],["Highest Very HSR Distance (m)","vhsr"]],
       table:{ cols:[["rd","Round"],["opp","Opposition"],["dur","Duration"],["td","Total Distance (m)"],["hsr","HSR 19–23 km/h (m)"],["vhsr","Very HSR 23+ km/h (m)"],["hia","High Intensity Accel Efforts (>2 m/s²)"],["top","Top Speed (km/h)"]],
         rows:[
@@ -429,7 +459,7 @@ const PROFILES = {
   "kyra-carusa": { foot:"Right", height:170,
     skills:["Attacking positioning","Strength","Ball control","Finishing"],
     history:["London City Lionesses to San Diego Wave FC · 24/25","HB Køge to London City Lionesses · 22/23","Le Havre AC to HB Køge · 19/20","Georgetown Hoyas to Le Havre AC · 18/19","Stanford Cardinal to Georgetown Hoyas · 18/19"] },
-  "lily-farkas": { foot:"Right", height:165, passport:"EU passport", topSpeed:"28.1 km/h",
+  "lily-farkas": { foot:"Right", height:165, league:"Icelandic top flight", passport:"Hungary (EU passport) / USA", tagPassport:"EU passport", topSpeed:"28.1 km/h",
     fitness:"Sustained an ankle injury in July that kept her out until the end of the season in October. She will be fully fit to play by the beginning of January.",
     physical:{ source:"Fram GPS individual weekly report · weeks 33–37",
       note:"HSR = high-speed running; HIACC / HIDEC = high-intensity accelerations / decelerations; ACC / DEC = accelerations / decelerations.",
@@ -451,9 +481,12 @@ const PROFILES = {
     history:["ALG Sport to Wellington United","UCF Knights to ALG Sport · 24/25","Northern Lights to UCF Knights · 20/21"],
     achievements:["Golden Boot · 2025","15 goals and 8 assists in 9 games · 2025"],
     video:[["Highlight reel 1","https://www.youtube.com/watch?v=398-YP067LM"],["Highlight reel 2","https://youtu.be/jal14xzcdpw"]] },
-  "makala-woods": { foot:"Right", height:168,
+  "makala-woods": { foot:"Right", height:168, league:"A-League Women", topSpeed:"33 km/h",
+    headline:"A quick and strong North American centre forward with a big personality and attacking output to match",
+    performance:[{ season:"2025/26", source:"Sisu player profile, 2026",
+      competitions:[{ comp:"A-League Women", apps:12, goals:5, assists:5, mins:908 }] }],
     skills:["Pace","1v1 with goalkeepers","Penalties","Physicality","Athleticism","Strong left foot"],
-    history:["Kentucky Wildcats to UMF Tindastóll · 24/25","Illinois Fighting Illini to Kentucky Wildcats · 24/25"],
+    history:["UMF Tindastóll to Wellington Phoenix FC · 25/26","Kentucky Wildcats to UMF Tindastóll · 24/25","Illinois Fighting Illini to Kentucky Wildcats · 24/25"],
     video:[["Full game","https://youtu.be/by-wDe5CkmM"]] },
   "mikki-easter": { foot:"Right", height:172,
     skills:["Quick reactions","Refined technique","Strong off the line","1v1 situations"],
@@ -514,7 +547,7 @@ const BIOS = {
   "elisha-n-dow": "",
   "julia-olsson": "",
   "gracie-knutzen": "",
-  "grace-pettet": "",
+  "grace-pettet": "A left-footed centre back with strong college credentials and rapidly developing professional experience across two European leagues in quick succession. Grace made 21 appearances in the Icelandic Besta deild with Tindastóll in 2025 before joining Racing Power in Portugal's top division in March 2026, showing the ambition and adaptability to step up to increasingly competitive environments. A composed, ball-playing defender who is comfortable operating on the left side of a back four.",
   "madison-ayson": "",
   "malia-steinmetz": "",
   "lily-farkas": "A creative player who can also contribute with goals. Lily also has a good work rate and positional discipline to match her flair for the game. She operates best as a central attacking midfielder but can also be deployed in a deeper playmaker role and even as a second striker. Lily is essentially an American player developed in the USA who has a Hungarian parent.",
@@ -528,7 +561,7 @@ const BIOS = {
   "ischia-brooking": "",
   "victoria-kalaberova": "",
   "zahmena-malik": "",
-  "giulianna-gianini": "",
+  "giulianna-gianino": "",
   "karin-muya": "",
   "alicia-terhart": "",
   "alana-cortellino": "",
@@ -558,6 +591,7 @@ const BIOS = {
   "grace-gordon": "",
   "maggie-jenkins": "",
   "suha-hirani": "",
+  "charlotte-flemming": "An out-and-out number 6 with a very good football education at the Chelsea academy, and an England youth international at U17 level.",
   "melina-ayres": "Tallish, strong and right-footed, Melina is a traditional all-round number 9, a profile that is hard to find in women's football. Good with her back to goal, with a decent work rate across the channels, dropping in and centrally, and very good finishing.",
   "theo-mouithys": "",
   "jacob-buchanan": "",
@@ -760,7 +794,7 @@ function card(p){
   const line1 = [p.position, ageText(p), p.profile.height ? p.profile.height + " cm" : null].filter(Boolean).join(" · ");
   const tags = [];
   if (p.nationalTeam) tags.push(/squad/i.test(p.nationalTeam) ? p.nationalTeam : p.nationalTeam + " international");
-  if (p.profile.passport) tags.push(p.profile.passport);
+  if (p.profile.tagPassport) tags.push(p.profile.tagPassport);
   if (p.profile.video) tags.push("Video available");
   tags.push(p.gender === "W" ? "Women" : "Men");
   return `<article class="card">
@@ -900,24 +934,27 @@ function viewList(q){
 }
 
 /* ---------- View: profile ---------- */
-function performanceBlock(pf){
-  const sum = k => pf.competitions.reduce((a, c) => a + (c[k] || 0), 0);
+function performanceBlock(seasons){
   const d = iso => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
-  return `<div class="detail"><h3>Performance Data · ${esc(pf.season)}</h3>
-    <div class="phys-tiles">
-      <div class="phys-tile"><span>Matches</span><b>${sum("apps")}</b></div>
-      <div class="phys-tile"><span>Goals</span><b>${sum("goals")}</b></div>
-      <div class="phys-tile"><span>Minutes</span><b>${sum("mins").toLocaleString("en-GB")}</b></div>
-    </div>
-    <div class="phys-table"><table>
-      <thead><tr><th>Competition</th><th>Matches</th><th>Starts</th><th>Goals</th><th>Minutes</th></tr></thead>
-      <tbody>${pf.competitions.map(c => `<tr><td>${esc(c.comp)}</td><td>${c.apps}</td><td>${c.starts ?? "–"}</td><td>${c.goals}</td><td>${c.mins}</td></tr>`).join("")}</tbody>
-    </table></div>
-    ${pf.matches && pf.matches.length ? `<div class="phys-table" style="margin-top:10px"><table>
-      <thead><tr><th>Date</th><th>Home</th><th>Away</th><th>Result</th><th>Goals</th><th>Minutes</th></tr></thead>
-      <tbody>${pf.matches.map(m => `<tr><td>${d(m.date)}</td><td>${esc(m.home)}</td><td>${esc(m.away)}</td><td>${esc(m.result)}</td><td>${m.goals || "–"}</td><td>${m.mins}</td></tr>`).join("")}</tbody>
-    </table></div>` : ""}
-    <p class="phys-src">Source: ${esc(pf.source)}.</p></div>`;
+  const cell = v => v === undefined || v === null ? "–" : Number(v).toLocaleString("en-GB");
+  const one = pf => {
+    const has = k => pf.competitions.some(c => c[k] !== undefined);
+    const sum = k => pf.competitions.reduce((a, c) => a + (c[k] || 0), 0);
+    const cols = [["apps","Matches"],["starts","Starts"],["goals","Goals"],["assists","Assists"],["mins","Minutes"]].filter(([k]) => has(k));
+    const tiles = [["apps","Matches"],["goals","Goals"],["assists","Assists"],["mins","Minutes"]].filter(([k]) => has(k));
+    return `<div class="perf-season"><h4>${esc(pf.season)}</h4>
+      <div class="phys-tiles">${tiles.map(([k, l]) => `<div class="phys-tile"><span>${l}</span><b>${sum(k).toLocaleString("en-GB")}</b></div>`).join("")}</div>
+      <div class="phys-table"><table>
+        <thead><tr><th>Competition</th>${cols.map(([, l]) => `<th>${l}</th>`).join("")}</tr></thead>
+        <tbody>${pf.competitions.map(c => `<tr><td>${esc(c.comp)}</td>${cols.map(([k]) => `<td>${cell(c[k])}</td>`).join("")}</tr>`).join("")}</tbody>
+      </table></div>
+      ${pf.matches && pf.matches.length ? `<div class="phys-table" style="margin-top:10px"><table>
+        <thead><tr><th>Date</th><th>Home</th><th>Away</th><th>Result</th><th>Goals</th><th>Minutes</th></tr></thead>
+        <tbody>${pf.matches.map(m => `<tr><td>${d(m.date)}</td><td>${esc(m.home)}</td><td>${esc(m.away)}</td><td>${esc(m.result)}</td><td>${m.goals || "–"}</td><td>${m.mins}</td></tr>`).join("")}</tbody>
+      </table></div>` : ""}
+      <p class="phys-src">Source: ${esc(pf.source)}.</p></div>`;
+  };
+  return `<div class="detail"><h3>Performance Data</h3>${seasons.map(one).join("")}</div>`;
 }
 function physicalBlock(ph){
   const fmt = v => typeof v === "number" ? v.toLocaleString("en-GB") : esc(v);
@@ -962,10 +999,11 @@ function viewPlayer(id){
     ["Height", p.profile.height ? p.profile.height + " cm" : null],
     ["Date of birth", p.birthday ? fmtDate(p.birthday) : (p.birthYear ? String(p.birthYear) : null)],
     ["Nationality", p.nationality],
-    ["Passport", p.profile.passport],
+    ["Passport", p.profile.passport || p.nationality],
     ["Region", p.regions.map(r => REGIONS[r]).join(" / ") || null],
     ["National team", p.nationalTeam],
     ["Current club", p.club],
+    ["League", p.profile.league],
     ["Club country", p.clubCountry],
     ["Club contract ends", fmtContract(p)],
     ["Availability", w.label],
