@@ -338,13 +338,13 @@ const PROFILES = {
     history:["Hashtag United to Charlton Athletic · September 2025","Hashtag United (FA Women's National League South)"],
     video:[["2025 highlights","https://youtu.be/4eVzRC8_3fs"],["2024/25 season review · Hashtag United","https://youtu.be/wCzRJTsZK7E"]],
     links:[["Soccerdonna profile","https://www.soccerdonna.de/en/frankie-finlayson/profil/spieler_110821.html"]] },
-  "elliana-martin": {
+  "elliana-martin": { topSpeed:"8.43 m/s (30.3 km/h)",
     skills:["Creating goalscoring opportunities","Dominates opponents through skill, pace or combinations","Timing and movement of forward runs","Finishing","Athleticism and strength in contact"],
     achievements:["WSL debut v Leicester · 2025/26","8 first-team squad appearances, 202 minutes · 2025/26"],
     history:["Brighton & Hove Albion academy · 4 seasons, U19"],
     physical:{ source:"Brighton & Hove Albion academy player CV · match maximums",
       stats:[["Total Distance","9,440"],["HSR Distance","455"],["Sprint Distance","276"],["Accel Distance","353"],["Decel Distance","134"],["Max V","8.1"],["%Max V","95.3"],["M/Min","96"],["Max Velocity","8.43 m/s"],["CMJ Jump Height","40.8 cm"],["CMJ Peak Power/kg","59 W/kg"]] } },
-  "melina-ayres": { foot:"Right", height:173,
+  "melina-ayres": { foot:"Right", height:173, topSpeed:"28.13 km/h",
     headline:"Classic centre forward · number 9",
     skills:["Traditional all-round number 9","Strong","Good with back to goal","Work rate: channels, drops in, central","Very good finishing"],
     video:[["Centre forward highlights","https://vimeo.com/thepfa/ayres2026"]],
@@ -422,7 +422,7 @@ const PROFILES = {
   "kyra-carusa": { foot:"Right", height:170,
     skills:["Attacking positioning","Strength","Ball control","Finishing"],
     history:["London City Lionesses to San Diego Wave FC · 24/25","HB Køge to London City Lionesses · 22/23","Le Havre AC to HB Køge · 19/20","Georgetown Hoyas to Le Havre AC · 18/19","Stanford Cardinal to Georgetown Hoyas · 18/19"] },
-  "lily-farkas": { foot:"Right", height:165, passport:"EU passport",
+  "lily-farkas": { foot:"Right", height:165, passport:"EU passport", topSpeed:"28.1 km/h",
     fitness:"Sustained an ankle injury in July that kept her out until the end of the season in October. She will be fully fit to play by the beginning of January.",
     physical:{ source:"Fram GPS individual weekly report · weeks 33–37",
       note:"HSR = high-speed running; HIACC / HIDEC = high-intensity accelerations / decelerations; ACC / DEC = accelerations / decelerations.",
@@ -942,7 +942,7 @@ function viewPlayer(id){
     ["Club country", p.clubCountry],
     ["Club contract ends", fmtContract(p)],
     ["Availability", w.label],
-    ["Team", p.gender === "W" ? "Women's football" : "Men's football"],
+    ["Top speed", p.profile.topSpeed],
   ];
   const related = PLAYERS.filter(x => x.id !== p.id && x.gender === p.gender && x.group === p.group).slice(0, 3);
   return `
