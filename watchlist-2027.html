@@ -271,7 +271,7 @@ const PLAYERS = [
   ["Grace Gordon","W","USA",null,"GK",2000,"2000-10-10","Free agent",null,"free"],
   ["Maggie Jenkins","W","New Zealand","New Zealand","ST",2001,"2001-06-14","Wellington United","New Zealand",null],
   ["Suha Hirani","W","Pakistan","Pakistan","AM/DM",1997,"1997-07-21","Karachi City FC","Pakistan",null],
-  ["Melina Ayres","W","Australia",null,"ST",null,null,"Newcastle Jets","Australia",null],
+  ["Melina Ayres","W","Australia",null,"ST",1999,"1999-04-13","Melbourne City","Australia","2028-06"],
   ["Theo Mouithys","W","Australia","Australia U17","Centre Forward",2009,"2009-02-05",null,null,null],
 
   // ---------- MEN ----------
@@ -349,6 +349,13 @@ const PROFILES = {
     skills:["Traditional all-round number 9","Strong","Good with back to goal","Work rate: channels, drops in, central","Very good finishing"],
     video:[["Centre forward highlights","https://vimeo.com/thepfa/ayres2026"]],
     links:[["Soccerdonna profile","https://www.soccerdonna.de/en/melina-ayres/leistungsdaten/spieler_29995.html"]],
+    history:["Melbourne City (A-League Women) · 26/27 to present","Newcastle Jets (A-League Women)"],
+    performance:{ season:"2026/27", source:"Soccerdonna",
+      competitions:[{ comp:"A-League Women", apps:2, starts:2, goals:2, mins:180 }],
+      matches:[
+        { date:"2026-10-18", home:"Wellington", away:"Melbourne City", result:"1:2", goals:1, mins:90 },
+        { date:"2026-10-25", home:"Sydney FC",  away:"Melbourne City", result:"0:5", goals:1, mins:90 },
+      ] },
     physical:{ source:"Match GPS data, rounds 1–21 and friendly",
       tiles:[["Top Speed (km/h)","top"],["Highest Total Distance (m)","td"],["Highest Very HSR Distance (m)","vhsr"]],
       table:{ cols:[["rd","Round"],["opp","Opposition"],["dur","Duration"],["td","Total Distance (m)"],["hsr","HSR 19–23 km/h (m)"],["vhsr","Very HSR 23+ km/h (m)"],["hia","High Intensity Accel Efforts (>2 m/s²)"],["top","Top Speed (km/h)"]],
@@ -893,6 +900,25 @@ function viewList(q){
 }
 
 /* ---------- View: profile ---------- */
+function performanceBlock(pf){
+  const sum = k => pf.competitions.reduce((a, c) => a + (c[k] || 0), 0);
+  const d = iso => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
+  return `<div class="detail"><h3>Performance Data · ${esc(pf.season)}</h3>
+    <div class="phys-tiles">
+      <div class="phys-tile"><span>Matches</span><b>${sum("apps")}</b></div>
+      <div class="phys-tile"><span>Goals</span><b>${sum("goals")}</b></div>
+      <div class="phys-tile"><span>Minutes</span><b>${sum("mins").toLocaleString("en-GB")}</b></div>
+    </div>
+    <div class="phys-table"><table>
+      <thead><tr><th>Competition</th><th>Matches</th><th>Starts</th><th>Goals</th><th>Minutes</th></tr></thead>
+      <tbody>${pf.competitions.map(c => `<tr><td>${esc(c.comp)}</td><td>${c.apps}</td><td>${c.starts ?? "–"}</td><td>${c.goals}</td><td>${c.mins}</td></tr>`).join("")}</tbody>
+    </table></div>
+    ${pf.matches && pf.matches.length ? `<div class="phys-table" style="margin-top:10px"><table>
+      <thead><tr><th>Date</th><th>Home</th><th>Away</th><th>Result</th><th>Goals</th><th>Minutes</th></tr></thead>
+      <tbody>${pf.matches.map(m => `<tr><td>${d(m.date)}</td><td>${esc(m.home)}</td><td>${esc(m.away)}</td><td>${esc(m.result)}</td><td>${m.goals || "–"}</td><td>${m.mins}</td></tr>`).join("")}</tbody>
+    </table></div>` : ""}
+    <p class="phys-src">Source: ${esc(pf.source)}.</p></div>`;
+}
 function physicalBlock(ph){
   const fmt = v => typeof v === "number" ? v.toLocaleString("en-GB") : esc(v);
   const t = ph.table, out = [];
@@ -915,6 +941,7 @@ function detailBlocks(p){
     pr.video.map(([l, u]) => `<a class="btn outline" href="${esc(u)}" target="_blank" rel="noopener">${ICON.play} ${esc(l)}</a>`).join("")}</div></div>`);
   if (pr.links && pr.links.length) out.push(`<div class="detail"><h3>External profiles</h3><div class="video-links">${
     pr.links.map(([l, u]) => `<a class="btn outline" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ${ICON.arrow}</a>`).join("")}</div></div>`);
+  if (pr.performance) out.push(performanceBlock(pr.performance));
   if (pr.physical) out.push(physicalBlock(pr.physical));
   if (pr.skills && pr.skills.length) out.push(`<div class="detail"><h3>Strengths</h3><div class="tags">${
     pr.skills.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div></div>`);
