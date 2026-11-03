@@ -233,6 +233,9 @@ const PLAYERS = [
   ["Victoria Mbali","W","Zambia","Zambia U17","Centre Forward",2008,"2008-02-21","Green Buffaloes FC","Zambia",null],
 
   // ---------- MEN ----------
+  ["Jacob Buchanan","M","Australia",null,"GK",2008,"2008-08-31","Western United","Australia",null],
+  ["Abel Walatee","M","Australia / Ghana","Australia U23","LW/RW",2004,"2004-02-22","Sydney FC","Australia","2029-06"],
+  ["Ahmed Faraz Gulzari","M","Australia / Pakistan","Pakistan","LW/RW/CF",2007,"2007-06-25","Melbourne Victory U21","Australia",null],
   ["Misha Axel Gumede","M","Sweden / South Africa",null,"CB/CM",2006,"2006-08-23","BK Astrio","Sweden","2026-12"],
   ["Jordan Lauton","M","Australia",null,"CM",2003,"2003-04-01","Brisbane Roar","Australia","2027-06"],
   ["Stavros Zarokostas","M","USA / Greece",null,"RW/CF",1997,"1997-11-05","One Knoxville SC","USA","2026-11"],
@@ -247,6 +250,11 @@ const PLAYERS = [
    Source: Sisu player profiles 2026. Only what the profile states.
    ============================================================ */
 const PROFILES = {
+  "abel-walatee": { foot:"Left", height:177, league:"A-League Men", passport:"Australia",
+    skills:["Ball control in tight spaces","Dribbling","Distribution"],
+    history:["Western United to Sydney FC · 25/26","Western United U21 to Western United · 24/25","Academic BK to Western United U21 · 23/24","Western United U21 to Academic BK · 22/23"],
+    video:[["Highlight reel","https://vimeo.com/thepfa/walatee2025"]] },
+  "ahmed-faraz-gulzari": { history:["Joined Melbourne Victory U21 · January 2026"] },
   "jordan-lauton": { height:180, league:"A-League Men", history:["Joined Brisbane Roar · September 2025"] },
   "cian-bargary": { height:178, league:"League of Ireland First Division", history:["Joined Kerry FC · February 2026","Cobh Ramblers"] },
   "chloe-lincoln": { height:178, league:"A-League Women", history:["Brisbane Roar FC · current","Western United","Canberra United"] },
@@ -320,6 +328,9 @@ const PROFILES = {
    an empty bio is simply not shown.
    ============================================================ */
 const BIOS = {
+  "jacob-buchanan": "",
+  "abel-walatee": "",
+  "ahmed-faraz-gulzari": "",
   "chloe-lincoln": "",
   "amanda-brunholt": "",
   "mikki-easter": "",
