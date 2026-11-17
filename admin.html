@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sisu Player List Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --navy:#14243B; --navy-2:#00366B; --yellow:#F4D450; --ink:#14243B; --muted:#5E6B7D; --line:#E3E7ED; --panel:#F5F7FA; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Poppins,Arial,sans-serif;color:var(--ink);background:var(--panel)}
+  header{background:var(--navy);color:#fff;padding:22px 0}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header h1{margin:0;font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+  header p{margin:4px 0 0;color:#C9D3E1;font-size:13px}
+  .login{max-width:360px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px}
+  .login h2{margin:0 0 14px;font-size:18px}
+  input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;font:inherit}
+  button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:10px 18px;background:var(--navy);color:#fff;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  button.light{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .err{color:#B42318;font-size:13px;min-height:18px;margin:8px 0}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+  .tile{background:var(--navy);color:#fff;border-radius:12px;padding:16px}
+  .tile span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#C9D3E1}
+  .tile b{font-size:28px;color:var(--yellow)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;min-width:0}
+  .card h2{margin:0 0 12px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy-2)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px;border-bottom:1px solid var(--line)}
+  td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  .bar{height:6px;background:var(--panel);border-radius:3px;margin-top:4px}
+  .bar i{display:block;height:100%;background:var(--navy-2);border-radius:3px}
+  .sub{color:var(--muted);font-size:12px}
+  .scroll{overflow-x:auto}
+  .empty{color:var(--muted);font-size:14px;padding:6px 0}
+  .note{background:#FFF8DB;border:1px solid #F1DE8A;border-radius:10px;padding:12px 14px;font-size:13.5px;margin:18px 0}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  a{color:var(--navy-2)}
+  @media (max-width:860px){ .tiles{grid-template-columns:repeat(2,1fr)} .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Sisu Player List · Admin</h1><p>Profile views, visitor locations and enquiries</p></div></header>
+<main class="wrap" id="app"></main>
+<script>
+const app = document.getElementById("app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nameOf = id => id.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+const when = t => new Date(t).toLocaleString("en-GB", { day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" });
+const sorted = o => Object.entries(o || {}).sort((a, b) => b[1] - a[1]);
+const getPw = () => { try { return sessionStorage.getItem("sisuAdminPw") || ""; } catch { return ""; } };
+const setPw = v => { try { v ? sessionStorage.setItem("sisuAdminPw", v) : sessionStorage.removeItem("sisuAdminPw"); } catch {} };
+
+function login(msg){
+  app.innerHTML = `<form class="login" id="f"><h2>Admin sign in</h2>
+    <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" required>
+    <div class="err">${esc(msg || "")}</div><button type="submit">Sign in</button></form>`;
+  document.getElementById("f").addEventListener("submit", e => { e.preventDefault(); load(document.getElementById("pw").value); });
+}
+
+async function load(pw){
+  app.innerHTML = `<p class="sub" style="margin:30px 0">Loading…</p>`;
+  let r;
+  try { r = await fetch("/api/admin", { method:"POST", headers:{ "x-admin-password": pw } }); }
+  catch { return login("Could not reach the server."); }
+  if (r.status === 401) { setPw(""); return login("Wrong password."); }
+  const d = await r.json().catch(() => ({}));
+  if (!d.ok) return login("Something went wrong loading the data.");
+  setPw(pw); render(d);
+}
+
+function tableCounts(entries, label, max){
+  if (!entries.length) return `<p class="empty">Nothing yet.</p>`;
+  const top = entries[0][1];
+  return `<table><thead><tr><th>${label}</th><th style="text-align:right">Views</th></tr></thead><tbody>${
+    entries.slice(0, max || 50).map(([k, v]) => `<tr><td>${esc(k)}<div class="bar"><i style="width:${Math.round(v / top * 100)}%"></i></div></td><td class="n">${v}</td></tr>`).join("")}</tbody></table>`;
+}
+
+function render(d){
+  if (!d.configured) {
+    app.innerHTML = `<div class="note">Storage isn't connected yet. Add Upstash Redis to the Vercel project (Storage tab), then redeploy. Views and enquiries will start appearing here.</div>`;
+    return;
+  }
+  const players = sorted(d.players), locs = sorted(d.locations);
+  const totalViews = Object.values(d.pages || {}).reduce((a, b) => a + b, 0);
+  const playerViews = players.reduce((a, [, v]) => a + v, 0);
+  const countries = new Set(locs.map(([k]) => k.split(", ").pop()).filter(c => c && c !== "Unknown"));
+  const clarity = d.clarityId ? `<a href="https://clarity.microsoft.com/projects/view/${esc(d.clarityId)}/heatmaps" target="_blank" rel="noopener">Open heat maps in Microsoft Clarity</a>` : `<span class="sub">Heat maps: add the Microsoft Clarity project ID to turn them on.</span>`;
+
+  app.innerHTML = `
+    <div class="actions" style="margin-top:18px"><button class="light" id="refresh">Refresh</button><button class="light" id="out">Sign out</button>${clarity}</div>
+    <div class="tiles">
+      <div class="tile"><span>Page views</span><b>${totalViews}</b></div>
+      <div class="tile"><span>Profile views</span><b>${playerViews}</b></div>
+      <div class="tile"><span>Countries</span><b>${countries.size}</b></div>
+      <div class="tile"><span>Enquiries</span><b>${d.enquiries.length}</b></div>
+    </div>
+
+    <div class="card"><h2>Enquiries</h2><div class="scroll">${d.enquiries.length ? `<table><thead><tr><th>Date</th><th>Player</th><th>Name</th><th>Email</th><th>Club · role</th><th>Location</th><th>Message</th></tr></thead><tbody>${
+      d.enquiries.map(e => `<tr><td class="sub">${when(e.t)}</td><td>${esc(e.playerName || (e.player ? nameOf(e.player) : "Shortlist request"))}</td><td>${esc(e.name)}</td><td><a href="mailto:${esc(e.email)}">${esc(e.email)}</a></td><td>${esc([e.club, e.role].filter(Boolean).join(" · "))}</td><td class="sub">${esc(e.loc)}</td><td>${esc(e.message)}</td></tr>`).join("")}</tbody></table>` : `<p class="empty">No enquiries yet.</p>`}</div></div>
+
+    <div class="grid">
+      <div class="card"><h2>Most viewed players</h2>${players.length ? `<table><thead><tr><th>Player</th><th>Top locations</th><th style="text-align:right">Views</th></tr></thead><tbody>${
+        players.map(([id, v]) => `<tr><td>${esc(nameOf(id))}<div class="bar"><i style="width:${Math.round(v / players[0][1] * 100)}%"></i></div></td><td class="sub">${esc(sorted(d.playerLocations[id]).slice(0, 3).map(([k, c]) => `${k} (${c})`).join(", "))}</td><td class="n">${v}</td></tr>`).join("")}</tbody></table>` : `<p class="empty">No profile views yet.</p>`}</div>
+      <div class="card"><h2>Visitor locations</h2>${tableCounts(locs, "City, country")}</div>
+    </div>
+
+    <div class="card"><h2>Recent activity</h2><div class="scroll">${d.events.length ? `<table><thead><tr><th>Time</th><th>Viewed</th><th>Location</th></tr></thead><tbody>${
+      d.events.slice(0, 100).map(e => `<tr><td class="sub">${when(e.t)}</td><td>${esc(e.type === "player" ? nameOf(e.player) : e.type === "home" ? "Home page" : "Player list")}</td><td>${esc(e.loc)}</td></tr>`).join("")}</tbody></table>` : `<p class="empty">Nothing yet.</p>`}</div></div>
+    <p class="sub">Locations come from Vercel's city and country lookup. No IP addresses or cookies are stored for view counts.</p>`;
+  document.getElementById("refresh").onclick = () => load(getPw());
+  document.getElementById("out").onclick = () => { setPw(""); login(); };
+}
+
+getPw() ? load(getPw()) : login();
+</script>
+</body>
+</html>

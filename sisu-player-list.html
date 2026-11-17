@@ -191,6 +191,28 @@
   .cta .actions{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
   .contact{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center;padding:30px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
   .contact strong{color:var(--ink)}
+  .modal-back{position:fixed;inset:0;background:rgba(20,36,59,.55);display:grid;place-items:center;z-index:50;padding:16px}
+  .modal{background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:calc(100vh - 32px);overflow:auto;padding:26px;position:relative}
+  .modal .eyebrow{color:var(--navy-2)}
+  .modal h2{margin:6px 0 16px;font-size:24px;text-transform:uppercase}
+  .modal-x{position:absolute;top:12px;right:14px;border:0;background:none;font-size:28px;line-height:1;color:var(--muted);cursor:pointer}
+  .enq{display:grid;gap:12px}
+  .enq label{display:grid;gap:5px;font-size:12px;font-weight:600;color:var(--muted)}
+  .enq input,.enq textarea{font:inherit;font-size:14px;font-weight:400;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+  .enq input:focus,.enq textarea:focus{outline:2px solid var(--navy-2);outline-offset:1px}
+  .enq-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .enq .enq-consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:12.5px;color:var(--ink)}
+  .enq .enq-consent input{width:auto;margin-top:3px}
+  .enq .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .enq-msg{margin:0;font-size:13px;color:#B42318;min-height:18px}
+  .enq-done{font-size:15px;margin:6px 0}
+  .enq button[type=submit]{justify-self:start}
+  .cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:40;background:var(--navy);color:#fff;border-radius:14px;padding:14px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:900px;margin:0 auto}
+  .cookie-bar p{margin:0;font-size:13px;flex:1;min-width:240px;color:#DCE3EE}
+  .cookie-bar a{color:var(--yellow)}
+  .cookie-bar div{display:flex;gap:8px}
+  .cookie-bar .light-btn{color:#fff;border-color:rgba(255,255,255,.5)}
+  @media (max-width:520px){ .enq-row{grid-template-columns:1fr} }
   .disclaimer{font-size:12px;color:var(--muted);padding-bottom:30px}
 
   @media (max-width:900px){
@@ -734,7 +756,7 @@ function ctaBlock(title){
         <h2>${esc(title || "Looking for a specific profile?")}</h2>
         <p>Tell us the position, market, key characteristics and budget. We will come back with players who fit, including profiles not listed here.</p>
         <div class="actions">
-          <a class="btn solid" href="${shortlistLink}">${ICON.mail} Request a shortlist</a>
+          <a class="btn solid" href="${shortlistLink}" data-enquire="">${ICON.mail} Request a shortlist</a>
           <a class="btn ghost" href="#/list">Browse all players ${ICON.arrow}</a>
         </div>
       </div>
@@ -750,7 +772,9 @@ function ctaBlock(title){
       <div><strong>Recruitment enquiries</strong><br>Sisu Sports Management</div>
       <div><a class="btn dark" href="mailto:${CONTACT_EMAIL}">${ICON.mail} ${CONTACT_EMAIL}</a></div>
     </div>
-    <p class="disclaimer">Contract and availability information is indicative and confirmed with Sisu on enquiry. Player ages update automatically.</p>
+    <p class="disclaimer">Contract and availability information is indicative and confirmed with Sisu on enquiry. Player ages update automatically.
+      Profile views are counted by city and country without cookies. Enquiry details are used by Sisu Sports Management only to reply to you.
+      <a href="https://www.sisusportsmanagement.com/privacy-policy" target="_blank" rel="noopener">Privacy policy</a>${CLARITY_ID ? ` · <a href="#" data-cookie-settings>Cookie settings</a>` : ""}</p>
   </div>`;
 }
 function card(p){
@@ -890,7 +914,7 @@ function viewList(q){
       reg !== "all" ? " · dual nationals appear under each of their regions" : ""}${
       amin !== null || amax !== null ? " · players without a recorded birth year are hidden while filtering by age" : ""}</p>
     ${list.length ? `<div class="cards">${list.map(card).join("")}</div>`
-      : `<div class="empty">No players match these filters. <a href="${shortlistLink}">Ask us for a tailored shortlist</a>.</div>`}
+      : `<div class="empty">No players match these filters. <a href="${shortlistLink}" data-enquire="">Ask us for a tailored shortlist</a>.</div>`}
   </div></section>
   ${ctaBlock("Looking for a different profile?")}`;
 }
@@ -1020,7 +1044,7 @@ function viewPlayer(id){
         <h1>${esc(p.name)}</h1>
         <p>${esc([p.position, ageText(p)].filter(Boolean).join(" · "))}</p>
         ${p.profile.headline ? `<p class="side-headline">${esc(p.profile.headline)}</p>` : ""}
-        <div style="margin-top:22px"><a class="btn solid" href="${enquiryLink(p)}">${ICON.mail} Enquire</a></div>
+        <div style="margin-top:22px"><a class="btn solid" href="${enquiryLink(p)}" data-enquire="${p.id}">${ICON.mail} Enquire</a></div>
       </aside>
       <div>
         <dl class="facts">
@@ -1028,7 +1052,7 @@ function viewPlayer(id){
         </dl>
         ${detailBlocks(p)}
         <p class="note">${esc(w.blurb)} ${p.profile.video ? "Further video" : "Video"}, physical data and references are available from the Sisu team.</p>
-        <a class="btn dark" href="${enquiryLink(p)}">${ICON.mail} Request player information</a>
+        <a class="btn dark" href="${enquiryLink(p)}" data-enquire="${p.id}">${ICON.mail} Request player information</a>
       </div>
     </div>
     ${related.length ? `<div style="margin-top:48px">
@@ -1042,6 +1066,7 @@ function viewPlayer(id){
 /* ---------- Render ---------- */
 function render(keepScroll){
   const { parts, q } = parseHash();
+  if (keepScroll !== true) track(parts[0] === "player" ? "player" : parts[0] === "list" ? "list" : "home", parts[1]);
   const app = document.getElementById("app");
   if (parts[0] === "list") app.innerHTML = viewList(q);
   else if (parts[0] === "player") app.innerHTML = viewPlayer(parts[1]);
@@ -1072,6 +1097,98 @@ function render(keepScroll){
   }
   if (keepScroll !== true) window.scrollTo(0, 0);
 }
+/* ---------- Analytics, enquiries and consent ---------- */
+const API_BASE = /\.vercel\.app$/.test(location.hostname) ? "" : "https://sisu-players.vercel.app";
+// Microsoft Clarity project ID (public, not a secret). Empty = heat maps off and no cookie banner.
+const CLARITY_ID = "";
+
+function track(type, player){
+  try {
+    const data = JSON.stringify({ type, player: player || null });
+    const url = API_BASE + "/api/track";
+    if (!(navigator.sendBeacon && navigator.sendBeacon(url, new Blob([data], { type: "application/json" }))))
+      fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: data, keepalive: true }).catch(() => {});
+  } catch {}
+}
+
+function enquiryModal(id){
+  const p = id ? PLAYERS.find(x => x.id === id) : null;
+  const fallback = p ? enquiryLink(p) : shortlistLink;
+  const wrap = document.createElement("div");
+  wrap.className = "modal-back";
+  wrap.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="enq-title">
+    <button class="modal-x" type="button" aria-label="Close">&times;</button>
+    <div class="eyebrow">${p ? "Player enquiry" : "Tailored shortlist"}</div>
+    <h2 id="enq-title">${p ? esc(p.name) : "Request a shortlist"}</h2>
+    <form class="enq" novalidate>
+      <div class="enq-row"><label>Name*<input name="name" required maxlength="120" autocomplete="name"></label>
+        <label>Email*<input name="email" type="email" required maxlength="200" autocomplete="email"></label></div>
+      <div class="enq-row"><label>Club / organisation<input name="club" maxlength="160" autocomplete="organization"></label>
+        <label>Role<input name="role" maxlength="120"></label></div>
+      <label>Message<textarea name="message" rows="4" maxlength="2000" placeholder="${p ? "What would you like to know?" : "Position, market, age range, budget, window"}"></textarea></label>
+      <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="enq-consent"><input type="checkbox" name="consent" required> I agree that Sisu Sports Management may use these details to reply to my enquiry. <a href="https://www.sisusportsmanagement.com/privacy-policy" target="_blank" rel="noopener">Privacy policy</a></label>
+      <p class="enq-msg" role="status"></p>
+      <button class="btn dark" type="submit">${ICON.mail} Send enquiry</button>
+    </form></div>`;
+  document.body.appendChild(wrap);
+  const close = () => { wrap.remove(); document.removeEventListener("keydown", onKey); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  document.addEventListener("keydown", onKey);
+  wrap.addEventListener("click", e => { if (e.target === wrap) close(); });
+  wrap.querySelector(".modal-x").onclick = close;
+  const form = wrap.querySelector("form"), msg = wrap.querySelector(".enq-msg");
+  form.querySelector("input[name=name]").focus();
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(form));
+    if (!f.name.trim() || !/^\S+@\S+\.\S+$/.test(f.email.trim())) { msg.textContent = "Please add your name and a valid email."; return; }
+    if (!form.consent.checked) { msg.textContent = "Please tick the box so we can reply."; return; }
+    const btn = form.querySelector("button[type=submit]"); btn.disabled = true; msg.textContent = "Sending…";
+    try {
+      const r = await fetch(API_BASE + "/api/enquiry", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...f, consent: true, player: p ? p.id : "", playerName: p ? p.name : "" }) });
+      if (!r.ok) throw new Error();
+      form.innerHTML = `<p class="enq-done">Thank you. Your enquiry has been sent to the Sisu team, who will reply by email.</p>`;
+    } catch {
+      btn.disabled = false;
+      msg.innerHTML = `Sorry, that didn't send. Please <a href="${fallback}">email us directly</a>.`;
+    }
+  });
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-enquire]");
+  if (a) { e.preventDefault(); enquiryModal(a.dataset.enquire); return; }
+  if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); consentBanner(true); }
+});
+
+function loadClarity(){
+  if (!CLARITY_ID || window.clarity) return;
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", CLARITY_ID);
+  window.clarity("consent");
+}
+function consentBanner(force){
+  if (!CLARITY_ID) return;
+  let choice = null;
+  try { choice = localStorage.getItem("sisuCookieChoice"); } catch {}
+  if (choice === "accept" && !force) return loadClarity();
+  if (choice === "decline" && !force) return;
+  document.querySelector(".cookie-bar")?.remove();
+  const bar = document.createElement("div");
+  bar.className = "cookie-bar";
+  bar.innerHTML = `<p>We'd like to use Microsoft Clarity cookies to see how this page is used (heat maps). You can say no and the page works the same. <a href="https://www.sisusportsmanagement.com/privacy-policy" target="_blank" rel="noopener">Privacy policy</a></p>
+    <div><button class="btn light-btn" data-c="decline">Decline</button><button class="btn solid" data-c="accept">Accept</button></div>`;
+  document.body.appendChild(bar);
+  bar.addEventListener("click", e => {
+    const c = e.target.closest("[data-c]")?.dataset.c; if (!c) return;
+    try { localStorage.setItem("sisuCookieChoice", c); } catch {}
+    bar.remove();
+    if (c === "accept") loadClarity();
+    else if (window.clarity) location.reload();
+  });
+}
+consentBanner();
+
 render();
 </script>
 </body>
