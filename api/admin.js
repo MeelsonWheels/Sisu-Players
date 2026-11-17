@@ -12,6 +12,17 @@ module.exports = async (req, res) => {
   if (!passwordMatches(given)) return res.status(401).json({ ok: false, error: "wrong password" });
   if (!storageReady()) return res.status(200).json({ ok: true, configured: false });
 
+  // Clears view counts, locations and activity. Enquiries are never touched.
+  if (req.headers["x-admin-action"] === "reset-views") {
+    try {
+      const [ids] = await redis([["HKEYS", "views:players"]]);
+      await redis([["DEL", "views:pages", "views:players", "views:locations", "events", ...(ids || []).map(id => `views:player:${id}`)]]);
+      return res.status(200).json({ ok: true, reset: true });
+    } catch {
+      return res.status(502).json({ ok: false, error: "storage error" });
+    }
+  }
+
   try {
     const [pages, players, locations, events, enquiries] = await redis([
       ["HGETALL", "views:pages"], ["HGETALL", "views:players"], ["HGETALL", "views:locations"],

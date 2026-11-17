@@ -92,7 +92,7 @@ function render(d){
   const clarity = d.clarityId ? `<a href="https://clarity.microsoft.com/projects/view/${esc(d.clarityId)}/heatmaps" target="_blank" rel="noopener">Open heat maps in Microsoft Clarity</a>` : `<span class="sub">Heat maps: add the Microsoft Clarity project ID to turn them on.</span>`;
 
   app.innerHTML = `
-    <div class="actions" style="margin-top:18px"><button class="light" id="refresh">Refresh</button><button class="light" id="out">Sign out</button>${clarity}</div>
+    <div class="actions" style="margin-top:18px"><button class="light" id="refresh">Refresh</button><button class="light" id="out">Sign out</button><button class="light" id="reset">Clear view stats</button>${clarity}</div>
     <div class="tiles">
       <div class="tile"><span>Page views</span><b>${totalViews}</b></div>
       <div class="tile"><span>Profile views</span><b>${playerViews}</b></div>
@@ -114,6 +114,12 @@ function render(d){
     <p class="sub">Locations come from Vercel's city and country lookup. No IP addresses or cookies are stored for view counts.</p>`;
   document.getElementById("refresh").onclick = () => load(getPw());
   document.getElementById("out").onclick = () => { setPw(""); login(); };
+  document.getElementById("reset").onclick = async () => {
+    if (!confirm("Delete all view counts, locations and recent activity? Enquiries are kept. This can't be undone.")) return;
+    const r = await fetch("/api/admin", { method:"POST", headers:{ "x-admin-password": getPw(), "x-admin-action": "reset-views" } }).catch(() => null);
+    if (!r || !r.ok) { alert("Couldn't clear the stats. Please try again."); return; }
+    load(getPw());
+  };
 }
 
 getPw() ? load(getPw()) : login();
