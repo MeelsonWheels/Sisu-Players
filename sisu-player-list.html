@@ -1102,7 +1102,15 @@ const API_BASE = /\.vercel\.app$/.test(location.hostname) ? "" : "https://sisu-p
 // Microsoft Clarity project ID (public, not a secret). Empty = heat maps off and no cookie banner.
 const CLARITY_ID = "";
 
+// Counts a view only for a real, visible browser that stays on the view for a moment,
+// which leaves out crawlers, link previews and email scanners.
+let trackTimer;
 function track(type, player){
+  clearTimeout(trackTimer);
+  if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse|preview/i.test(navigator.userAgent)) return;
+  trackTimer = setTimeout(() => { if (document.visibilityState === "visible") sendTrack(type, player); }, 1500);
+}
+function sendTrack(type, player){
   try {
     const data = JSON.stringify({ type, player: player || null });
     const url = API_BASE + "/api/track";
