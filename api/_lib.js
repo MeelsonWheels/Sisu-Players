@@ -34,9 +34,9 @@ function cors(res) {
 }
 
 function passwordMatches(given) {
-  const expected = process.env.ADMIN_PASSWORD || "";
+  const expected = (process.env.ADMIN_PASSWORD || "").trim();
   if (!expected || typeof given !== "string") return false;
-  const a = crypto.createHash("sha256").update(given).digest();
+  const a = crypto.createHash("sha256").update(given.trim()).digest();
   const b = crypto.createHash("sha256").update(expected).digest();
   return crypto.timingSafeEqual(a, b);
 }

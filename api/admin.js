@@ -7,6 +7,7 @@ const parse = list => (list || []).map(s => { try { return JSON.parse(s); } catc
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") return res.status(405).json({ ok: false });
+  if (!(process.env.ADMIN_PASSWORD || "").trim()) return res.status(503).json({ ok: false, error: "no admin password set" });
   const given = (req.headers["x-admin-password"] || "").toString();
   if (!passwordMatches(given)) return res.status(401).json({ ok: false, error: "wrong password" });
   if (!storageReady()) return res.status(200).json({ ok: true, configured: false });

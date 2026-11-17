@@ -67,6 +67,7 @@ async function load(pw){
   try { r = await fetch("/api/admin", { method:"POST", headers:{ "x-admin-password": pw } }); }
   catch { return login("Could not reach the server."); }
   if (r.status === 401) { setPw(""); return login("Wrong password."); }
+  if (r.status === 503) { setPw(""); return login("The site can't see an admin password yet. Check ADMIN_PASSWORD is set for Production in Vercel, then redeploy."); }
   const d = await r.json().catch(() => ({}));
   if (!d.ok) return login("Something went wrong loading the data.");
   setPw(pw); render(d);
