@@ -648,6 +648,17 @@ function groupOf(pos){
   if (/^(DM|CM|AM|CAM|CDM|LM|RM)$/.test(first)) return "mid";
   return "fwd";
 }
+// Every group a player's listed positions cover, e.g. "CB/CM" is a defender and a midfielder.
+function groupsOf(pos){
+  const out = new Set([groupOf(pos)]);
+  pos.toUpperCase().split(/[\/\s(),]+/).forEach(t => {
+    if (t === "GK" || t === "GOALKEEPER") out.add("gk");
+    else if (/^(LB|RB|CB|LCB|RCB|LWB|RWB)$/.test(t)) out.add("def");
+    else if (/^(DM|CM|AM|CAM|CDM|LM|RM)$/.test(t)) out.add("mid");
+    else if (/^(LW|RW|ST|CF|SS|W|FORWARD|WINGER|STRIKER)$/.test(t)) out.add("fwd");
+  });
+  return [...out];
+}
 
 /* ---------- Nationality regions ----------
    A dual national appears under every region they hold a nationality in. */
@@ -684,7 +695,7 @@ function ageBounds(p){
 
 /* ---------- Helpers ---------- */
 const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
-PLAYERS.forEach(p => { p.id = slug(p.name); p.underContract = JANUARY_2027[p.id] === true; p.window = windowOf(p); p.group = groupOf(p.position); p.profile = PROFILES[p.id] || {}; p.bio = BIOS[p.id] || ""; p.match = MATCH_STATS[p.id] || null; p.regions = regionsOf(p); });
+PLAYERS.forEach(p => { p.id = slug(p.name); p.underContract = JANUARY_2027[p.id] === true; p.window = windowOf(p); p.group = groupOf(p.position); p.groups = groupsOf(p.position); p.profile = PROFILES[p.id] || {}; p.bio = BIOS[p.id] || ""; p.match = MATCH_STATS[p.id] || null; p.regions = regionsOf(p); });
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initials = n => n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0,2).join("").toUpperCase();
 function age(p){
@@ -823,7 +834,7 @@ function viewHub(){
       <div class="pos-grid">
         ${Object.values(POSITIONS).map(ps => `<a class="pos" href="#/list?g=${g}&pos=${ps.key}">
           <span><b>${ps.label}</b><small>${ps.short}</small></span>
-          <span class="n">${count(p => p.gender === g && p.group === ps.key)}</span>
+          <span class="n">${count(p => p.gender === g && p.groups.includes(ps.key))}</span>
         </a>`).join("")}
       </div>
     </div>`;
@@ -872,7 +883,7 @@ function viewList(q){
   };
   let list = PLAYERS.filter(p =>
     (g === "all" || p.gender === g) &&
-    (pos === "all" || p.group === pos) &&
+    (pos === "all" || p.groups.includes(pos)) &&
     (win === "all" || p.window === win) &&
     (reg === "all" || p.regions.includes(reg)) &&
     ageOk(p) &&
@@ -1035,7 +1046,7 @@ function viewPlayer(id){
     ["Availability", w.label + (p.underContract ? " · under contract" : "")],
     ["Top speed", p.profile.topSpeed],
   ];
-  const related = PLAYERS.filter(x => x.id !== p.id && x.gender === p.gender && x.group === p.group).slice(0, 3);
+  const related = PLAYERS.filter(x => x.id !== p.id && x.gender === p.gender && x.groups.includes(p.group)).slice(0, 3);
   return `
   <header class="hero list-hero"><div class="wrap">
     <a class="crumb" href="#/list?g=${p.gender}&pos=${p.group}">${ICON.back} ${esc(POSITIONS[p.group].label)} · ${p.gender === "W" ? "Women" : "Men"}</a>
