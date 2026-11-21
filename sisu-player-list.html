@@ -252,7 +252,7 @@ const PLAYERS = [
   ["Caragh Hamilton","W","Northern Ireland","Northern Ireland","RB",1996,"1996-10-18","Unattached",null,"free"],
   ["Chris Ba","W",null,null,"LB/LWB",null,null,"FC Masar","Egypt",null],
   ["Rebekah Trewhitt","W","New Zealand","New Zealand U20","RB/RWB",2005,"2005-12-13","Spartak Subotica","Serbia",null],
-  ["Wakana Mitani","W","Japan",null,"RW/RB",2001,"2001-10-02","INAC Kobe Leonessa","Japan",null],
+  ["Wakana Mitani","W","Japan",null,"FW/MF",2001,"2001-10-02","INAC Kobe Leonessa","Japan",null],
   ["Vyan Sampson","W","England / Jamaica","Jamaica","CB/DM",1996,"1996-07-02","Unattached",null,"free"],
   ["Julia Olsson","W","Sweden",null,"CB/RB",1997,"1997-01-31","Piteå IF","Sweden",null],
   ["Gracie Knutzen","W","USA",null,"LCB",2002,"2002-03-11","FC Gintra","Lithuania",null],
@@ -270,7 +270,7 @@ const PLAYERS = [
 
   // ---------- MEN ----------
   ["Jacob Buchanan","M","Australia",null,"GK",2008,"2008-08-31","Western United","Australia",null],
-  ["Abel Walatee","M","Australia / Ghana","Australia U23","LW/RW",2004,"2004-02-22","Sydney FC","Australia","2029-06"],
+  ["Abel Walatee","M","Australia / Ghana / Liberia","Australia U23","LW/RW",2004,"2004-02-22","Sydney FC","Australia","2029-06"],
   ["Ahmed Faraz Gulzari","M","Australia / Pakistan","Pakistan","LW/RW/CF",2007,"2007-06-25","Melbourne Victory U21","Australia",null],
   ["Misha Axel Gumede","M","Sweden / South Africa",null,"CB/CM",2006,"2006-08-23","BK Astrio","Sweden","2026-12"],
   ["Jordan Lauton","M","Australia",null,"CM",2003,"2003-04-01","Brisbane Roar","Australia","2027-06"],
@@ -665,8 +665,8 @@ function groupsOf(pos){
   pos.toUpperCase().split(/[\/\s(),]+/).forEach(t => {
     if (t === "GK" || t === "GOALKEEPER") out.add("gk");
     else if (/^(LB|RB|CB|LCB|RCB|LWB|RWB)$/.test(t)) out.add("def");
-    else if (/^(DM|CM|AM|CAM|CDM|LM|RM)$/.test(t)) out.add("mid");
-    else if (/^(LW|RW|ST|CF|SS|W|FORWARD|WINGER|STRIKER)$/.test(t)) out.add("fwd");
+    else if (/^(DM|CM|AM|CAM|CDM|LM|RM|MF)$/.test(t)) out.add("mid");
+    else if (/^(LW|RW|ST|CF|SS|W|FW|FORWARD|WINGER|STRIKER)$/.test(t)) out.add("fwd");
   });
   return [...out];
 }
